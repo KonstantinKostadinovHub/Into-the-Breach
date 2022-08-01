@@ -4,14 +4,32 @@
 
 using namespace std;
 
+#include "Globals.h"
+#include "CWorld.h"
+
 #undef main
 
 int main(int* argc, char* argv[])
 {
-	std::cout << "hi\n";
+	getScreenDetails(SCREEN_W, SCREEN_H);
 
-	while (true)
+	CWorld world;
+	world.init();
+
+	unsigned long long last_update = 0;
+	unsigned long long last_draw = 0;
+
+	while (world.m_run)
 	{
-		std::cout << "!";
+		if (SDL_GetTicks() >= last_update + 1000 / tps) {
+			world.update();
+			last_update = SDL_GetTicks();
+		}
+
+		if (SDL_GetTicks() >= last_draw + 1000 / fps) {
+			world.draw();
+			last_draw = SDL_GetTicks();
+		}
+		std::cout << "run\n";
 	}
 }

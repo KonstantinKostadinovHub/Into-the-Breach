@@ -16,5 +16,19 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Globals.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CWorld.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Globals.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CWorld.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
