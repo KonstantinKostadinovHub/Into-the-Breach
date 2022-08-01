@@ -8,5 +8,5 @@ using namespace std;
 
 int main(int* argc, char* argv[])
 {
-	cout << "Hello, my name is Konstantin! \n";
+	cout << "Hello, my name is not Konstantin! \n";
 }
