@@ -143,8 +143,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\CWorld.cpp" />
+    <ClCompile Include="src\Globals.cpp" />
     <ClCompile Include="src\InputManger.cpp" />
     <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\CWorld.h" />
+    <ClInclude Include="include\Globals.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\InputManger.h" />
