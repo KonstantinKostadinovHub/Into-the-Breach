@@ -143,6 +143,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\CGame.cpp" />
+    <ClCompile Include="src\CGrid.cpp" />
     <ClCompile Include="src\CWorld.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\Globals.cpp" />
@@ -150,6 +152,8 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\CGame.h" />
+    <ClInclude Include="include\CGrid.h" />
     <ClInclude Include="include\CWorld.h" />
     <ClInclude Include="include\Engine.h" />
     <ClInclude Include="include\Globals.h" />

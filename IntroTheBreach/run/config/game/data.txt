@@ -1,0 +1,2 @@
+m_bgrTexture: game\\background.bmp
+m_bgrTextureOverlay: game\\backgroundOverlay.bmp

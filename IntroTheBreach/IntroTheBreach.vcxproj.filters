@@ -25,6 +25,12 @@
     <ClCompile Include="src\Engine.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\CGame.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CGrid.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Globals.h">
@@ -37,6 +43,12 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClInclude Include="include\Engine.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CGame.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CGrid.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

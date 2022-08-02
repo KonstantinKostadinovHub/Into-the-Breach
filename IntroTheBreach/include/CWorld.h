@@ -3,6 +3,7 @@
 #include <SDL.h>
 
 #include "InputManger.h"
+#include "CGame.h"
 
 class CWorld {
 public:
@@ -15,6 +16,7 @@ public:
 	SDL_Renderer* m_mainRenderer;
 
 	InputManager m_inputManager;
+	CGame m_game;
 
 	void init();
 	void update();
