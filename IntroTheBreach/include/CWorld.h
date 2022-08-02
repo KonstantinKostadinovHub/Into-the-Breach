@@ -19,5 +19,5 @@ public:
 	void init();
 	void update();
 	void draw();
-	void suicide();
+	void quit();
 };

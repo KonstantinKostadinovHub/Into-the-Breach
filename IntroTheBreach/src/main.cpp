@@ -31,4 +31,8 @@ int main(int* argc, char* argv[])
 			last_draw = SDL_GetTicks();
 		}
 	}
+
+	world.quit();
+
+	return 0;
 }

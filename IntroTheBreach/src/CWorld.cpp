@@ -35,7 +35,7 @@ void CWorld::draw() {
 	SDL_RenderPresent(m_mainRenderer);
 }
 
-void CWorld::suicide() {
+void CWorld::quit() {
 	SDL_DestroyRenderer(m_mainRenderer);
 	SDL_DestroyWindow(m_mainWindow);
 }
