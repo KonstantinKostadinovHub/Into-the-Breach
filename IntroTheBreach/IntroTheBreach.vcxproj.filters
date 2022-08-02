@@ -1,42 +1,42 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="include">
-      <UniqueIdentifier>{9f4c89c4-49c5-451c-b19e-2d37cb79ce1e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{fb6a6443-f212-4b7a-b6ec-7a39668db4f2}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\main.cpp">
+    <ClCompile Include="src\CWorld.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Globals.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\CWorld.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\Globals.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CWorld.h">
-      <Filter>include</Filter>
-    </ClInclude>
     <ClCompile Include="src\InputManger.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\CWorld.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Globals.h">
+      <Filter>include</Filter>
+    </ClInclude>
     <ClInclude Include="include\InputManger.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\Entity.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="include">
+      <UniqueIdentifier>{65b28590-2a6e-4c2c-a169-8ee189825f0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{a66be03b-65d3-4306-a8cb-723ccab51fd3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
