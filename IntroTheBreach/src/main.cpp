@@ -30,6 +30,9 @@ int main(int* argc, char* argv[])
 			world.draw();
 			last_draw = SDL_GetTicks();
 		}
-		std::cout << "run\n";
 	}
+
+	world.quit();
+
+	return 0;
 }

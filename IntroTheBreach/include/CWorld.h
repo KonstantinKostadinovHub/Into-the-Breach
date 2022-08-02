@@ -2,6 +2,9 @@
 
 #include <SDL.h>
 
+#include "InputManger.h"
+#include "CGame.h"
+
 class CWorld {
 public:
 	CWorld();
@@ -12,8 +15,11 @@ public:
 	SDL_Window* m_mainWindow;
 	SDL_Renderer* m_mainRenderer;
 
+	InputManager m_inputManager;
+	CGame m_game;
+
 	void init();
 	void update();
 	void draw();
-	void suicide();
+	void quit();
 };

@@ -16,6 +16,15 @@
     <ClCompile Include="src\Entity.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CGame.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CGrid.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CWorld.h">
@@ -30,13 +39,22 @@
     <ClInclude Include="include\Entity.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClCompile Include="src\InputManger.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClInclude Include="include\Engine.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CGame.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CGrid.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="include">
-      <UniqueIdentifier>{65b28590-2a6e-4c2c-a169-8ee189825f0a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{a66be03b-65d3-4306-a8cb-723ccab51fd3}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="include\InputManger.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
