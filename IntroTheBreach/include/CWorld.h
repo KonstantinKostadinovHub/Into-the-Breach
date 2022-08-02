@@ -2,6 +2,8 @@
 
 #include <SDL.h>
 
+#include "InputManger.h"
+
 class CWorld {
 public:
 	CWorld();
@@ -11,6 +13,8 @@ public:
 
 	SDL_Window* m_mainWindow;
 	SDL_Renderer* m_mainRenderer;
+
+	InputManager m_inputManager;
 
 	void init();
 	void update();

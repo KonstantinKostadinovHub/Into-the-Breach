@@ -3,6 +3,8 @@
 #include "Globals.h"
 
 CWorld::CWorld() {
+	m_inputManager = InputManager();
+
 	m_run = true;
 	m_mainWindow = nullptr;
 	m_mainRenderer = nullptr;
@@ -18,7 +20,11 @@ void CWorld::init() {
 }
 
 void CWorld::update() {
+	m_inputManager.update();
 
+	if (InputManager::m_quit) {
+		m_run = false;
+	}
 }
 
 void CWorld::draw() {

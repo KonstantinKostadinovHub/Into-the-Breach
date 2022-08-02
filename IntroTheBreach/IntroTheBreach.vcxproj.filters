@@ -22,6 +22,9 @@
     <ClCompile Include="src\CWorld.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Engine.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Globals.h">
@@ -33,6 +36,9 @@
     <ClCompile Include="src\InputManger.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClInclude Include="include\Engine.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\InputManger.h">
