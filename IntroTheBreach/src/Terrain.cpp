@@ -8,7 +8,8 @@ Terrain::Terrain(int st_tileCol, int st_tileRow)
 {
 	m_rect.w = 100;
 	m_rect.h = 100;
-	m_curTile.first =
+	m_curTile.first = st_tileCol;
+	m_curTile.second = st_tileRow;
 
 }
 
