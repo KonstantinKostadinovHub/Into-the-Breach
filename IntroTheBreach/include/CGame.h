@@ -5,6 +5,8 @@
 
 using std::string;
 
+#include "CGrid.h"
+
 class CGame {
 public:
 	CGame();
@@ -18,6 +20,8 @@ public:
 	SDL_Texture* m_bgrTexture;
 	SDL_Texture* m_bgrTextureOverlay;
 	SDL_Rect m_bgrRect;
+
+	CGrid m_grid;
 
 	void init(SDL_Renderer* renderer);
 	void update();

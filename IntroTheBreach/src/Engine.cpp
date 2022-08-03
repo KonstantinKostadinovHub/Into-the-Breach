@@ -92,6 +92,9 @@ double3::~double3() {
 
 }
 
+int TILE_SIZE;
+int ISOM_TILE_W;
+int ISOM_TILE_H;
 
 SDL_Texture* loadTexture(SDL_Renderer* renderer, string filename) {
     filename = "img\\" + filename;
@@ -114,6 +117,39 @@ SDL_Texture* loadText(SDL_Renderer* renderer, string filename, SDL_Color text_co
     SDL_FreeSurface(tmp);
 
     return text_img;
+}
+
+void giveTileSize(int tileSize, int isomTileW, int isomTileH) {
+    TILE_SIZE = tileSize;
+    ISOM_TILE_W = isomTileW;
+    ISOM_TILE_H = isomTileH;
+}
+
+int2 normalToIsom(int2 coord) {
+    int2 isomCoord;
+
+    isomCoord.x = -1 * ISOM_TILE_W / 2 + (coord.x * ISOM_TILE_W / 2 / TILE_SIZE) - (coord.y * (ISOM_TILE_W / 2) / TILE_SIZE);
+    isomCoord.y = (coord.x * (ISOM_TILE_H / 4) / TILE_SIZE) + (coord.y * (ISOM_TILE_H / 4) / TILE_SIZE);
+
+    return isomCoord;
+}
+
+int2 gridToScreenCoords(int2 gridCoord) {
+    int2 screenCoord;
+
+    screenCoord.x = gridCoord.x - gridCoord.y;
+    screenCoord.y = (gridCoord.x + gridCoord.y) / 2;
+
+    return screenCoord;
+}
+
+int2 screenToGridCoords(int2 screenCoords) {
+    int2 gridCoord;
+
+    gridCoord.x = screenCoords.x / 2 + screenCoords.y;
+    gridCoord.y = screenCoords.y * 2 - gridCoord.x;
+
+    return gridCoord;
 }
 
 bool colliding(SDL_Rect rect1, SDL_Rect rect2) {
