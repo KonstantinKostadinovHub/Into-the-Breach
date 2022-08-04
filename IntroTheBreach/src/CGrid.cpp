@@ -10,6 +10,12 @@ CGrid::CGrid() {
 
 	m_tileTextureFile = "";
 	m_tileTexture = nullptr;
+
+	m_shadowTextureFile = "";
+	m_shadowTexture = nullptr;
+
+	lastSelectedTile = { -1, -1 };
+	selectedTile = false;
 }
 
 CGrid::~CGrid() {
@@ -23,10 +29,12 @@ void CGrid::init(SDL_Renderer* renderer) {
 	fin.open("config\\game\\grid_data.txt");
 
 	fin >> m_tileTextureFile >> m_tileTextureFile;
+	fin >> m_shadowTextureFile >> m_shadowTextureFile;
 
 	fin.close();
 
 	m_tileTexture = loadTexture(m_mainRenderer, m_tileTextureFile);
+	m_shadowTexture = loadTexture(m_mainRenderer, m_shadowTextureFile);
 
 	if (align_with == 'w') {
 		m_tileSize = SCREEN_W / m_size / 2.4;
@@ -41,7 +49,7 @@ void CGrid::init(SDL_Renderer* renderer) {
 
 	for (int yy = 0; yy < m_size; yy++) {
 		for (int xx = 0; xx < m_size; xx++) {
-			tile[xx][yy].init(m_mainRenderer, m_tileTexture, { xx * m_tileSize, yy * m_tileSize }, m_tileSize);
+			tile[xx][yy].init(m_mainRenderer, m_tileTexture, m_shadowTexture, { xx * m_tileSize, yy * m_tileSize }, m_tileSize);
 		}
 	}
 }
@@ -50,6 +58,16 @@ void CGrid::update() {
 	for (int yy = 0; yy < m_size; yy++) {
 		for (int xx = 0; xx < m_size; xx++) {
 			tile[xx][yy].update();
+
+			if (tile[xx][yy].selected && (xx != lastSelectedTile.x || yy != lastSelectedTile.y)) {
+				if (selectedTile) {
+					tile[lastSelectedTile.x][lastSelectedTile.y].selected = false;
+				}
+				selectedTile = true;
+
+				lastSelectedTile.x = xx;
+				lastSelectedTile.y = yy;
+			}
 		}
 	}
 }

@@ -1,5 +1,5 @@
 #include "InputManger.h"
-//#include "Engine.h"
+#include "Engine.h"
 
 int2 InputManager::m_mouseCoord = int2(0, 0);
 
@@ -132,6 +132,32 @@ bool button::collisionWithMouse()
 
 bool button::pressed() {
 	if (!collisionWithMouse())
+	{
+		if (InputManager::m_mouseReleased)
+		{
+			button_down = false;
+		}
+		return false;
+	}
+	if (InputManager::m_mousePressed)
+	{
+		button_down = true;
+		return false;
+	}
+	if (InputManager::m_mouseReleased)
+	{
+		if (button_down)
+		{
+			button_down = false;
+			return true;
+		}
+		button_down = false;
+	}
+	return false;
+}
+
+bool button::pressed(int2 point) {
+	if (!collidingRectAndPoint(m_rect, point))
 	{
 		if (InputManager::m_mouseReleased)
 		{

@@ -9,6 +9,7 @@ CTile::CTile() {
 	m_mainRenderer = nullptr;
 
 	m_texture = nullptr;
+	m_shadow_texture = nullptr;
 
 	m_button.m_rect = { 0, 0, 1, 1 };
 	m_rectLifted = { 0, 0, 1, 1 };
@@ -17,6 +18,7 @@ CTile::CTile() {
 	m_isomRectLifted = { 0, 0, 1, 1 };
 
 	hovered = false;
+	selected = false;
 
 	z_add = 0;
 }
@@ -25,10 +27,11 @@ CTile::~CTile() {
 
 }
 
-void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, int2 coord, int size) {
+void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shadow_texture, int2 coord, int size) {
 	m_mainRenderer = renderer;
 
 	m_texture = texture;
+	m_shadow_texture = shadow_texture;
 
 	m_button.m_rect.w = size;
 	m_button.m_rect.h = size;
@@ -73,20 +76,30 @@ void CTile::update() {
 	else if (collidingRectAndPoint(m_button.m_rect, tmp)) {
 		hovered = true;
 	}
+
+	bool down = m_button.pressed(tmp);
+
+	if (down && !selected) {
+		selected = true;
+	}
+	else {
+		if (down && selected) {
+			selected = false;
+		}
+	}
 }
 
 void CTile::draw() {
-	if (hovered) {
+	if (hovered || m_button.button_down || selected) {
 		SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRectLifted);
 	}
 	else {
 		SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRect);
 	}
 
-	//SDL_Rect tmp = { screenToGridCoords(InputManager::m_mouseCoord).x, screenToGridCoords(InputManager::m_mouseCoord).y, 5, 5 };
-
-	//SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_button.m_rect);
-	//SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &tmp);
+	if (selected) {
+		SDL_RenderCopy(m_mainRenderer, m_shadow_texture, NULL, &m_isomRectLifted);
+	}
 }
 
 void CTile::quit() {

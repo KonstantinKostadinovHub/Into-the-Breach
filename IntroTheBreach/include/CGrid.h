@@ -19,9 +19,15 @@ public:
 	string m_tileTextureFile;
 	SDL_Texture* m_tileTexture;
 
+	string m_shadowTextureFile;
+	SDL_Texture* m_shadowTexture;
+
 	int m_tileSize;
 
 	CTile tile[m_size][m_size];
+
+	int2 lastSelectedTile;
+	bool selectedTile;
 
 	void init(SDL_Renderer* renderer);
 	void update();

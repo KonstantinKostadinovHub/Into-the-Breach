@@ -38,4 +38,5 @@ struct button {
 
 	bool collisionWithMouse();
 	bool pressed();
+	bool pressed(int2 point);
 };

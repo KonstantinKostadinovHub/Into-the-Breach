@@ -1,1 +1,2 @@
 m_tileTextureFile: game\\tile\\tile4.bmp
+m_shadowTextureFile: game\\tile\\shadow.bmp
