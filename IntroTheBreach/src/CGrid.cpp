@@ -37,7 +37,7 @@ void CGrid::init(SDL_Renderer* renderer) {
 
 	CTile::m_gridSize = m_size;
 
-	//giveTileSize(m_tileSize, 1.732 * m_tileSize, m_tileSize * 2);
+	giveTileSize(m_tileSize, m_tileSize * 2, m_tileSize * 2, m_size);
 
 	for (int yy = 0; yy < m_size; yy++) {
 		for (int xx = 0; xx < m_size; xx++) {

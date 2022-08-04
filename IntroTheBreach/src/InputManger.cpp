@@ -1,5 +1,5 @@
 #include "InputManger.h"
-#include "Engine.h"
+//#include "Engine.h"
 
 int2 InputManager::m_mouseCoord = int2(0, 0);
 
@@ -47,8 +47,8 @@ void InputManager::update() {
 					m_mousePressed = true;
 					m_mouseState = "down";
 
-					std::cout << m_mouseCoord.x << " " << m_mouseCoord.y << "\n";
-					std::cout << screenToGridCoords(m_mouseCoord).x << " " << screenToGridCoords(m_mouseCoord).y << "\n\n\n";
+					//std::cout << m_mouseCoord.x << " " << m_mouseCoord.y << "\n";
+					//std::cout << screenToGridCoords(m_mouseCoord).x << " " << screenToGridCoords(m_mouseCoord).y << "\n\n\n";
 					//std::cout << "MOUSE PRESSED\n";
 				}
 

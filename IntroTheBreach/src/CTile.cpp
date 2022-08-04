@@ -10,8 +10,15 @@ CTile::CTile() {
 
 	m_texture = nullptr;
 
-	m_rect = { 0, 0, 1, 1 };
+	m_button.m_rect = { 0, 0, 1, 1 };
+	m_rectLifted = { 0, 0, 1, 1 };
+	m_button.button_down = false;
 	m_isomRect = { 0, 0, 1, 1 };
+	m_isomRectLifted = { 0, 0, 1, 1 };
+
+	hovered = false;
+
+	z_add = 0;
 }
 
 CTile::~CTile() {
@@ -23,31 +30,63 @@ void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, int2 coord, int s
 
 	m_texture = texture;
 
-	m_rect.w = size;
-	m_rect.h = size;
+	m_button.m_rect.w = size;
+	m_button.m_rect.h = size;
 
-	m_rect.x = coord.x;
-	m_rect.y = coord.y;
+	m_button.m_rect.x = coord.x;
+	m_button.m_rect.y = coord.y;
 
-	m_isomRect.w = m_rect.h / 2 * 4;// 1.732 * m_rect.h;
-	m_isomRect.h = m_rect.h / 2 * 2 + m_rect.h;// size + m_rect.h;
+	m_isomRect.w = m_button.m_rect.h / 2 * 4;// 1.732 * m_rect.h;
+	m_isomRect.h = m_button.m_rect.h / 2 * 2 + m_button.m_rect.h;// size + m_rect.h;
 
 	int2 tmp;
-	tmp = gridToScreenCoords({ m_rect.x, m_rect.y });
+	tmp = gridToScreenCoords({ m_button.m_rect.x, m_button.m_rect.y });
 
-	m_isomRect.x = tmp.x + SCREEN_W / 2 - m_isomRect.w / 2;
-	m_isomRect.y = tmp.y + (SCREEN_H - m_isomRect.h / 2 * (m_gridSize + 1)) / 2;// -(m_rect.x / m_rect.w + m_rect.y / m_rect.h) * 4;
+	if (align_with == 'w') {
+		z_add = SCREEN_W / 100;
+	}
+	else if (align_with == 'h') {
+		z_add = SCREEN_H / 50;
+	}
+
+	m_isomRect.x = tmp.x;
+	m_isomRect.y = tmp.y;
+
+	int m_rectLift = 0;// z_add * 1.414;
+
+	m_rectLifted = m_button.m_rect;
+	m_rectLifted.x -= m_rectLift;
+	m_rectLifted.y -= m_rectLift;
+
+	m_isomRectLifted = m_isomRect;
+	m_isomRectLifted.y -= z_add;
 }
 
 void CTile::update() {
+	int2 tmp = screenToGridCoords(InputManager::m_mouseCoord);
 
+	if (hovered) {
+		if (!collidingRectAndPoint(m_rectLifted, tmp)) {
+			hovered = false;
+		}
+	}
+	else if (collidingRectAndPoint(m_button.m_rect, tmp)) {
+		hovered = true;
+	}
 }
 
 void CTile::draw() {
-	SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRect);
+	if (hovered) {
+		SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRectLifted);
+	}
+	else {
+		SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRect);
+	}
 
-	/*std::cout << m_mainRenderer << " " << m_texture << "\n"
-		<< m_rect.x << " " << m_rect.y << " " << m_rect.w << " " << m_rect.h << "\n\n\n";*/
+	//SDL_Rect tmp = { screenToGridCoords(InputManager::m_mouseCoord).x, screenToGridCoords(InputManager::m_mouseCoord).y, 5, 5 };
+
+	//SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_button.m_rect);
+	//SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &tmp);
 }
 
 void CTile::quit() {
