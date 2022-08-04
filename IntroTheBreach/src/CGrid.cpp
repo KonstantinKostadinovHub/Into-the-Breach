@@ -54,20 +54,26 @@ void CGrid::init(SDL_Renderer* renderer) {
 	}
 }
 
+void CGrid::checkForOtherSelectedTiles(int2 CurrSelectedTileCoord) {
+	if (tile[CurrSelectedTileCoord.x][CurrSelectedTileCoord.y].selected && 
+		(CurrSelectedTileCoord.x != lastSelectedTile.x || CurrSelectedTileCoord.y != lastSelectedTile.y)) {
+
+		if (selectedTile) {
+			tile[lastSelectedTile.x][lastSelectedTile.y].selected = false;
+		}
+		selectedTile = true;
+
+		lastSelectedTile.x = CurrSelectedTileCoord.x;
+		lastSelectedTile.y = CurrSelectedTileCoord.y;
+	}
+}
+
 void CGrid::update() {
 	for (int yy = 0; yy < m_size; yy++) {
 		for (int xx = 0; xx < m_size; xx++) {
 			tile[xx][yy].update();
 
-			if (tile[xx][yy].selected && (xx != lastSelectedTile.x || yy != lastSelectedTile.y)) {
-				if (selectedTile) {
-					tile[lastSelectedTile.x][lastSelectedTile.y].selected = false;
-				}
-				selectedTile = true;
-
-				lastSelectedTile.x = xx;
-				lastSelectedTile.y = yy;
-			}
+			checkForOtherSelectedTiles({ xx, yy });
 		}
 	}
 }
@@ -81,5 +87,13 @@ void CGrid::draw() {
 }
 
 void CGrid::quit() {
+	for (int yy = 0; yy < m_size; yy++) {
+		for (int xx = 0; xx < m_size; xx++) {
+			tile[xx][yy].quit();
+		}
+	}
 
+	SDL_DestroyTexture(m_tileTexture);
+	SDL_DestroyTexture(m_shadowTexture);
 }
+

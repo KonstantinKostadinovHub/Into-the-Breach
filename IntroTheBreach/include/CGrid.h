@@ -30,6 +30,7 @@ public:
 	bool selectedTile;
 
 	void init(SDL_Renderer* renderer);
+	void checkForOtherSelectedTiles(int2 CurrSelectedTileCoord);
 	void update();
 	void draw();
 	void quit();

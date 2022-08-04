@@ -67,6 +67,8 @@ void CGame::draw() {
 }
 
 void CGame::quit() {
+	m_grid.quit();
+
 	SDL_DestroyTexture(m_bgrTexture);
 	SDL_DestroyTexture(m_bgrTextureOverlay);
 }
