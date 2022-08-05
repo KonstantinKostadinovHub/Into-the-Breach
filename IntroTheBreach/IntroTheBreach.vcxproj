@@ -154,6 +154,7 @@
     <ClCompile Include="src\Healthbar.cpp" />
     <ClCompile Include="src\InputManger.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CGame.h" />

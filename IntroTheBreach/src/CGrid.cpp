@@ -56,6 +56,7 @@ void CGrid::init(SDL_Renderer* renderer) {
 	m_grassColor.push_back(curr_color);
 
 	m_grassColor.push_back({ 255, 255, 255 });
+	m_grassColor.push_back({ 255, 255, 255 });
 
 	fin.close();
 
@@ -68,6 +69,7 @@ void CGrid::init(SDL_Renderer* renderer) {
 	m_tileTexture.push_back({ m_tileDirtTexture, m_tileOverlayTexture });
 	m_tileTexture.push_back({ m_tileDirtTexture, m_tileOverlayTexture });
 	m_tileTexture.push_back({ m_tileDirtTexture, m_tileOverlayTexture });
+	m_tileTexture.push_back({ m_tileDirtTexture, nullptr });
 	m_tileTexture.push_back({ m_tileSandTexture, nullptr });
 
 	int index = rand() % (int)m_tileTexture.size();

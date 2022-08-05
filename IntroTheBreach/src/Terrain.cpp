@@ -1,7 +1,7 @@
 #include "Terrain.h"
 
-Terrain::Terrain()
-{
+Terrain::Terrain() {
+
 }
 
 Terrain::Terrain(int st_tileCol, int st_tileRow) {
