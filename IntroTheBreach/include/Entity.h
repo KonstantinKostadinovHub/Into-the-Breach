@@ -13,7 +13,7 @@ public:
 	~Entity();
 
 	SDL_Texture* m_texture;
-	SDL_Rect m_rect;
+	SDL_Rect m_rect; //Isometric coords
 
 	std::pair<int, int> m_curTile;
 	int2 grid2dCoords;

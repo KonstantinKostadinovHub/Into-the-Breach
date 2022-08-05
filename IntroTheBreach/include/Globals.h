@@ -17,6 +17,10 @@ extern int SCREEN_H;
 
 extern char align_with;
 
+const float GRAVITY_PULL = 0.5;
+
+const int PROJECTILE_SIZE = 20;
+
 const int HEALTHBAR_W = 36;
 const int HEALTHBAR_H = 16;
 const int HEALTHBAR_FRAME_W = 2;
