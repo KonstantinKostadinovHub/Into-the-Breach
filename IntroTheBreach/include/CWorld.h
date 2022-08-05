@@ -4,6 +4,7 @@
 
 #include "InputManger.h"
 #include "CGame.h"
+#include "Entity.h"
 #include "Healthbar.h"
 #include "Health.h"
 

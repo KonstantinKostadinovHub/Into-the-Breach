@@ -8,7 +8,7 @@
 class Healthbar {
 public:
 	Healthbar();
-	Healthbar(int health, int2 coords);
+	Healthbar(int health, int2 centerCoords);
 	~Healthbar();
 
 	static SDL_Texture* m_HEALTHBAR_TEXTURE;

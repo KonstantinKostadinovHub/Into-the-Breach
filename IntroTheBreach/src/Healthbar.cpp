@@ -7,13 +7,13 @@ SDL_Texture* Healthbar::m_HEALTHBAR_TEXTURE;
 Healthbar::Healthbar() {
 }
 
-Healthbar::Healthbar(int health, int2 coords) {
-	m_rect = { coords.x, coords.y , HEALTHBAR_W, HEALTHBAR_H };
+Healthbar::Healthbar(int health, int2 centerCoords) {
+	m_rect = {centerCoords.x - HEALTHBAR_W / 2, centerCoords.y - HEALTHBAR_H / 2 , HEALTHBAR_W, HEALTHBAR_H};
 
 	m_maxHealth = health;
 	m_healthLeft = health;
 
-	float health_w = (m_rect.w - (HEALTHBAT_FRAME_W * 2) - (health - 1.f)) / health;
+	float health_w = (m_rect.w - (HEALTHBAR_FRAME_W * 2) - (health - 1.f)) / health;
 	int2 health_coords(m_rect.x + 2, m_rect.y + 2);
 	float leftPixels = 0;
 	bool thicker = false;

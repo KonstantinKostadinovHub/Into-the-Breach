@@ -131,8 +131,8 @@ void giveTileSize(int tileSize, int isomTileW, int isomTileH, int gridSize) {
 int2 normalToIsom(int2 coord) {
     int2 isomCoord;
 
-    isomCoord.x = -1 * ISOM_TILE_W / 2 + (coord.x * ISOM_TILE_W / 2 / TILE_SIZE) - (coord.y * (ISOM_TILE_W / 2) / TILE_SIZE);
-    isomCoord.y = (coord.x * (ISOM_TILE_H / 4) / TILE_SIZE) + (coord.y * (ISOM_TILE_H / 4) / TILE_SIZE);
+    isomCoord.x = -1 * ISOM_TILE_W / 2 + ((coord.x - coord.y) * ISOM_TILE_W / 2 / TILE_SIZE);
+    isomCoord.y = ((coord.x + coord.y) * (ISOM_TILE_H / 4) / TILE_SIZE);
 
     return isomCoord;
 }
