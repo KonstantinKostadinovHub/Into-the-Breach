@@ -1,2 +1,9 @@
-m_tileTextureFile: game\\tile\\tile4.bmp
+m_tileDirtTextureFile: game\\tile\\dirt.bmp
+m_tileSandTextureFile: game\\tile\\sand.bmp
+m_overlayTextureFile: game\\tile\\overlay.bmp
 m_shadowTextureFile: game\\tile\\shadow.bmp
+
+m_grassColor: 20 205 80
+m_dryGrassColor: 240 195 85
+m_snowColor: 240 255 255
+m_darkColor: 50 50 50

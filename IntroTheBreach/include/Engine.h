@@ -67,6 +67,15 @@ struct double3 {
 	double z;
 };
 
+struct SDL_Texture2 {
+	SDL_Texture2();
+	SDL_Texture2(SDL_Texture* img, SDL_Texture* overlay_img);
+	~SDL_Texture2();
+
+	SDL_Texture* texture;
+	SDL_Texture* overlay;
+};
+
 extern int TILE_SIZE;
 extern int ISOM_TILE_W;
 extern int ISOM_TILE_H;
