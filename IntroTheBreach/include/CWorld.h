@@ -20,8 +20,6 @@ public:
 	InputManager m_inputManager;
 	CGame m_game;
 
-	Healthbar testing_healthbar;
-
 	void init();
 	void update();
 	void draw();
