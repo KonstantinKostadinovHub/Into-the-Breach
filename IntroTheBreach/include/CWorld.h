@@ -4,6 +4,8 @@
 
 #include "InputManger.h"
 #include "CGame.h"
+#include "Healthbar.h"
+#include "Health.h"
 
 class CWorld {
 public:
@@ -17,6 +19,8 @@ public:
 
 	InputManager m_inputManager;
 	CGame m_game;
+
+	Healthbar testing_healthbar;
 
 	void init();
 	void update();

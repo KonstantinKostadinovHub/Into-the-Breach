@@ -24,3 +24,8 @@ void Entity::moveToTile(int tileCol, int tileRow) {
 
 	//Change rect
 }
+
+void Entity::setIsometricCoords(int2 centerCoords) {
+	m_rect.x = centerCoords.x - m_rect.w / 2;
+	m_rect.y = centerCoords.y - m_rect.h / 2;
+}

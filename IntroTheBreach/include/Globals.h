@@ -17,4 +17,9 @@ extern int SCREEN_H;
 
 extern char align_with;
 
+const int HEALTHBAR_W = 36;
+const int HEALTHBAR_H = 16;
+const int HEALTHBAT_FRAME_W = 2;
+const int HEALTH_H = 12;
+
 void getScreenDetails(int& w, int& h);
