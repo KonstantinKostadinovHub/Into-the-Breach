@@ -12,7 +12,7 @@ CGame::CGame() {
 	m_bgrTextureFile = "";
 	m_bgrTextureOverlayFile = "";
 
-	m_bgrRect = SDL_Rect();
+	m_bgrRect = { 0, 0, 1, 1 };
 	m_bgrTexture = nullptr;
 	m_bgrTextureOverlay = nullptr;
 }
@@ -51,18 +51,24 @@ void CGame::init(SDL_Renderer* renderer) {
 		m_bgrRect.y = 0;
 		m_bgrRect.x = (SCREEN_W - m_bgrRect.w) / 2;
 	}
+
+	m_grid.init(m_mainRenderer);
 }
 
 void CGame::update() {
-
+	m_grid.update();
 }
 
 void CGame::draw() {
 	SDL_RenderCopy(m_mainRenderer, m_bgrTexture, NULL, &m_bgrRect);
 	SDL_RenderCopy(m_mainRenderer, m_bgrTextureOverlay, NULL, &m_bgrRect);
+
+	m_grid.draw();
 }
 
 void CGame::quit() {
+	m_grid.quit();
+
 	SDL_DestroyTexture(m_bgrTexture);
 	SDL_DestroyTexture(m_bgrTextureOverlay);
 }

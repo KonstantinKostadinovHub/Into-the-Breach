@@ -67,8 +67,18 @@ struct double3 {
 	double z;
 };
 
+extern int TILE_SIZE;
+extern int ISOM_TILE_W;
+extern int ISOM_TILE_H;
+extern int GRID_SIZE;
 
 SDL_Texture* loadTexture(SDL_Renderer* renderer, string filename);
 SDL_Texture* loadText(SDL_Renderer* renderer, string filename, SDL_Color text_color, string text);
 
+void giveTileSize(int tileSize, int isomTileW, int isomTileH, int gridSize);
+int2 normalToIsom(int2 coords);
+int2 gridToScreenCoords(int2 gridCoords);
+int2 screenToGridCoords(int2 screenCoords);
+
 bool colliding(SDL_Rect rect1, SDL_Rect rect2);
+bool collidingRectAndPoint(SDL_Rect rect, int2 point);
