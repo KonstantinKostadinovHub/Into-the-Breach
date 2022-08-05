@@ -23,14 +23,15 @@ public:
 	SDL_Renderer* m_mainRenderer;
 
 	SDL_Texture* m_texture;
-	SDL_Texture* m_shadow_texture;
+	SDL_Texture* m_overlayTexture;
+	SDL_Texture* m_shadowTexture;
 
 	button m_button;
 	SDL_Rect m_rectLifted;
 	SDL_Rect m_isomRect;
 	SDL_Rect m_isomRectLifted;
 
-	void init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shadow_texture, int2 coord, int size);
+	void init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* overlay_texture, SDL_Texture* shadow_texture, int2 coord, int size);
 	void update();
 	void draw();
 	void quit();

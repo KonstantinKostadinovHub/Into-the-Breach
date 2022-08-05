@@ -189,3 +189,17 @@ bool collidingRectAndPoint(SDL_Rect rect, int2 point) {
 
     return true;
 }
+
+SDL_Texture2::SDL_Texture2() {
+    texture = nullptr;
+    overlay = nullptr;
+}
+
+SDL_Texture2::SDL_Texture2(SDL_Texture* img, SDL_Texture* overlay_img) {
+    texture = img;
+    overlay = overlay_img;
+}
+
+SDL_Texture2::~SDL_Texture2() {
+
+}

@@ -2,10 +2,13 @@
 
 #include <SDL.h>
 #include <string>
+#include <vector>
 
 using std::string;
+using std::vector;
 
 #include "CTile.h"
+#include "Engine.h"
 
 class CGrid {
 public:
@@ -16,11 +19,20 @@ public:
 
 	SDL_Renderer* m_mainRenderer;
 
-	string m_tileTextureFile;
-	SDL_Texture* m_tileTexture;
+	string m_tileDirtTextureFile;
+	SDL_Texture* m_tileDirtTexture;
+
+	string m_tileSandTextureFile;
+	SDL_Texture* m_tileSandTexture;
+
+	string m_tileOverlayTextureFile;
+	SDL_Texture* m_tileOverlayTexture;
 
 	string m_shadowTextureFile;
 	SDL_Texture* m_shadowTexture;
+
+	vector <int3> m_grassColor;
+	vector <SDL_Texture2> m_tileTexture;
 
 	int m_tileSize;
 

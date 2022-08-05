@@ -1,8 +1,12 @@
+#include <ctime>
+
 #include "CWorld.h"
 
 #include "Globals.h"
 
 CWorld::CWorld() {
+	srand(time(0));
+
 	m_run = true;
 	m_mainWindow = nullptr;
 	m_mainRenderer = nullptr;

@@ -9,7 +9,8 @@ CTile::CTile() {
 	m_mainRenderer = nullptr;
 
 	m_texture = nullptr;
-	m_shadow_texture = nullptr;
+	m_overlayTexture = nullptr;
+	m_shadowTexture = nullptr;
 
 	m_button.m_rect = { 0, 0, 1, 1 };
 	m_rectLifted = { 0, 0, 1, 1 };
@@ -27,11 +28,12 @@ CTile::~CTile() {
 
 }
 
-void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shadow_texture, int2 coord, int size) {
+void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* overlay_texture, SDL_Texture* shadow_texture, int2 coord, int size) {
 	m_mainRenderer = renderer;
 
 	m_texture = texture;
-	m_shadow_texture = shadow_texture;
+	m_overlayTexture = overlay_texture;
+	m_shadowTexture = shadow_texture;
 
 	m_button.m_rect.w = size;
 	m_button.m_rect.h = size;
@@ -92,13 +94,15 @@ void CTile::update() {
 void CTile::draw() {
 	if (hovered || m_button.button_down || selected) {
 		SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRectLifted);
+		SDL_RenderCopy(m_mainRenderer, m_overlayTexture, NULL, &m_isomRectLifted);
 	}
 	else {
 		SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRect);
+		SDL_RenderCopy(m_mainRenderer, m_overlayTexture, NULL, &m_isomRect);
 	}
 
 	if (selected) {
-		SDL_RenderCopy(m_mainRenderer, m_shadow_texture, NULL, &m_isomRectLifted);
+		SDL_RenderCopy(m_mainRenderer, m_shadowTexture, NULL, &m_isomRectLifted);
 	}
 }
 
