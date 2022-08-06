@@ -21,4 +21,5 @@ public:
 	bool m_delete;
 
 	void draw(SDL_Renderer* renderer);
+	void setCoords(int2 coords);
 };

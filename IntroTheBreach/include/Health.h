@@ -14,4 +14,5 @@ public:
 	SDL_Rect m_rect;
 
 	void draw(SDL_Renderer* renderer);
+	void moveCoords(int2 coordsChange);
 };

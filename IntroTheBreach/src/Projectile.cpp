@@ -1,5 +1,7 @@
 #include "Projectile.h"
 
+SDL_Texture* Projectile::m_PROJECTILE_TEXTURE = nullptr;
+
 Projectile::Projectile() {
 }
 
@@ -7,8 +9,8 @@ Projectile::Projectile(int st_tileCol, int st_tileRow, int destinationTileCol, i
 	m_rect.w = PROJECTILE_SIZE;
 	m_rect.h = PROJECTILE_SIZE;
 	
-	m_realCoords = gridToScreenCoords(int2(st_tileCol * TILE_SIZE, st_tileRow * TILE_SIZE));
-	m_destinationCoords = gridToScreenCoords(int2(destinationTileCol * TILE_SIZE, destinationTileRow * TILE_SIZE));
+	m_realCoords = gridToScreenCoords(int2(st_tileCol * TILE_SIZE - TILE_SIZE / 2, st_tileRow * TILE_SIZE - TILE_SIZE / 2));
+	m_destinationCoords = gridToScreenCoords(int2(destinationTileCol * TILE_SIZE - TILE_SIZE / 2, destinationTileRow * TILE_SIZE - TILE_SIZE / 2));
 	m_z = 0;
 
 	m_vel.z = 15;
@@ -25,7 +27,7 @@ Projectile::~Projectile() {
 }
 
 void Projectile::draw(SDL_Renderer* renderer) {
-	SDL_RenderCopy(renderer, m_texture, NULL, &m_rect);
+	SDL_RenderCopy(renderer, m_PROJECTILE_TEXTURE, NULL, &m_rect);
 }
 
 void Projectile::update() {

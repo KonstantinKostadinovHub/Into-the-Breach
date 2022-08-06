@@ -145,6 +145,14 @@ int2 gridToScreenCoords(int2 gridCoord) {
 
     return screenCoord;
 }
+float2 floatGridToScreenCoords(float2 gridCoord) {
+    float2 screenCoord;
+
+    screenCoord.x = gridCoord.x - gridCoord.y + SCREEN_W / 2 - ISOM_TILE_W / 2;
+    screenCoord.y = (gridCoord.x + gridCoord.y) / 2 + (SCREEN_H - ISOM_TILE_H / 2 * (GRID_SIZE + 1)) / 2;
+
+    return screenCoord;
+}
 
 int2 screenToGridCoords(int2 screenCoords) {
     int2 gridCoord;

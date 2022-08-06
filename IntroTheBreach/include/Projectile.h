@@ -10,7 +10,7 @@ public:
 	Projectile(int st_tileCol, int st_tileRow, int destinationTileCol, int destinationTileRow);
 	~Projectile();
 
-	SDL_Texture* m_texture;
+	static SDL_Texture* m_PROJECTILE_TEXTURE;
 	SDL_Rect m_rect; //Isometric coords
 
 	float3 m_vel;

@@ -87,6 +87,7 @@ SDL_Texture* loadText(SDL_Renderer* renderer, string filename, SDL_Color text_co
 void giveTileSize(int tileSize, int isomTileW, int isomTileH, int gridSize);
 int2 normalToIsom(int2 coords);
 int2 gridToScreenCoords(int2 gridCoords);
+float2 floatGridToScreenCoords(float2 gridCoord);
 int2 screenToGridCoords(int2 screenCoords);
 
 bool colliding(SDL_Rect rect1, SDL_Rect rect2);
