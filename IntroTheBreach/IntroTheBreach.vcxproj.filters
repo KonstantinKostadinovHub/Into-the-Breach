@@ -34,16 +34,7 @@
     <ClCompile Include="src\CTile.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Health.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Healthbar.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Terrain.cpp">
+    <ClCompile Include="src\CTerrain.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -69,16 +60,7 @@
     <ClInclude Include="include\CTile.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Entity.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Health.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Healthbar.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Terrain.h">
+    <ClInclude Include="include\CTerrain.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

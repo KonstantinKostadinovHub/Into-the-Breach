@@ -8,6 +8,7 @@ using std::string;
 using std::vector;
 
 #include "CTile.h"
+#include "CTerrain.h"
 #include "Engine.h"
 
 class CGrid {
@@ -15,28 +16,29 @@ public:
 	CGrid();
 	~CGrid();
 
-	static const int m_size = 8;
+	static const int M_SIZE = 8;
+	static const int TERRAIN_OBJECTS = 4;
 
 	SDL_Renderer* m_mainRenderer;
 
-	string m_tileDirtTextureFile;
-	SDL_Texture* m_tileDirtTexture;
+	vector <string> biomes; // all file names in directory "img\\game\\terrain\\"
 
-	string m_tileSandTextureFile;
-	SDL_Texture* m_tileSandTexture;
+	string m_tileTextureFiles; // path to the directory with biomes ("img\\game\\terrain\\")
+	string m_tileShadowTextureFile;
 
-	string m_tileOverlayTextureFile;
-	SDL_Texture* m_tileOverlayTexture;
+	int terrainObjectsCnt[TERRAIN_OBJECTS]; // the count of each object (1 tile, 1 fluid, 1 mountain, 2 trees)
 
-	string m_shadowTextureFile;
-	SDL_Texture* m_shadowTexture;
+	vector <SDL_Texture*> m_tileTexture;
+	vector <SDL_Texture*> m_tileFluidTexture;
+	vector <SDL_Texture*> m_mountainTexture;
+	vector <SDL_Texture*> m_treeTexture;
 
-	vector <int3> m_grassColor;
-	vector <SDL_Texture2> m_tileTexture;
+	SDL_Texture* m_tileShadowTexture;
 
 	int m_tileSize;
 
-	CTile tile[m_size][m_size];
+	CTile tile[M_SIZE][M_SIZE];
+	CTerrain terrain[M_SIZE][M_SIZE];
 
 	int2 lastSelectedTile;
 	bool selectedTile;

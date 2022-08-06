@@ -91,3 +91,6 @@ int2 screenToGridCoords(int2 screenCoords);
 
 bool colliding(SDL_Rect rect1, SDL_Rect rect2);
 bool collidingRectAndPoint(SDL_Rect rect, int2 point);
+
+int getNumSize(int num);
+string intToStr(int num);
