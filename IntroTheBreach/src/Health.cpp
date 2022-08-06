@@ -17,3 +17,8 @@ Health::~Health() {
 void Health::draw(SDL_Renderer* renderer) {
 	SDL_RenderCopy(renderer, m_HEALTH_TEXTURE, NULL, &m_rect);
 }
+
+void Health::moveCoords(int2 coordsChange) {
+	m_rect.x += coordsChange.x;
+	m_rect.y += coordsChange.y;
+}

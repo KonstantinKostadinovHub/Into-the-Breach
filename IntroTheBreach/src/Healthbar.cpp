@@ -46,3 +46,12 @@ void Healthbar::draw(SDL_Renderer* renderer) {
 		m_health[i].draw(renderer);
 	}
 }
+
+void Healthbar::setCoords(int2 coords) {
+	int2 coordChange = int2(coords.x - m_rect.x - HEALTHBAR_W / 2, coords.y - m_rect.y - HEALTHBAR_H / 2);
+	m_rect.x = coords.x - HEALTHBAR_W / 2;
+	m_rect.y = coords.y - HEALTHBAR_H / 2;
+	for (int i = 0; i < m_health.size(); i++) {
+		m_health[i].moveCoords(coordChange);
+	}
+}

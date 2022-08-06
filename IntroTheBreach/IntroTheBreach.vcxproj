@@ -152,6 +152,8 @@
     <ClCompile Include="src\Globals.cpp" />
     <ClCompile Include="src\InputManger.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Projectile.cpp" />
+    <ClCompile Include="src\Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CGame.h" />
@@ -161,6 +163,10 @@
     <ClInclude Include="include\CWorld.h" />
     <ClInclude Include="include\Engine.h" />
     <ClInclude Include="include\Globals.h" />
+    <ClInclude Include="include\Health.h" />
+    <ClInclude Include="include\Healthbar.h" />
+    <ClInclude Include="include\Projectile.h" />
+    <ClInclude Include="include\Terrain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\InputManger.h" />
