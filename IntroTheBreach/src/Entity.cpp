@@ -8,10 +8,10 @@ Entity::Entity(int st_tileCol, int st_tileRow, int health) {
 	m_rect.h = 78;
 	
 	setCoordsOnTile(st_tileCol, st_tileRow);
-
-	m_healthLeft = health;
+	
 	m_healthbar = Healthbar(health, int2(m_rect.x + m_rect.w / 2, m_rect.y - HEALTHBAR_OFFSET_FROM_ENTITY));
 
+	m_dead = false;
 	m_moving = false;
 	m_destinationTile.first = -1;
 	m_destinationTile.second = -1;
@@ -80,6 +80,13 @@ void Entity::continueMoving() {
 
 void Entity::attack(int attackedTileCol, int attackedTileRow) {
 	m_projectile.push_back(Projectile(m_curTile.first, m_curTile.second, attackedTileCol, attackedTileRow));
+}
+
+void Entity::decreaseHealth(int decrease) {
+	m_healthbar.decreaseHealth(decrease);
+	if (m_healthbar.m_healthDepleted) {
+		m_dead = true;
+	}
 }
 
 void Entity::setCoordsOnTile(int tileCol, int tileRow) {
