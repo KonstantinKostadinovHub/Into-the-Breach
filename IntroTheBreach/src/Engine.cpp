@@ -211,3 +211,31 @@ SDL_Texture2::SDL_Texture2(SDL_Texture* img, SDL_Texture* overlay_img) {
 SDL_Texture2::~SDL_Texture2() {
 
 }
+
+int getNumSize(int num)
+{
+    for (int i = 0; i > -1; i++) {
+        num /= 10;
+
+        if (num == 0) {
+            return i + 1;
+        }
+    }
+}
+
+string intToStr(int num) {
+    string ans = "";
+
+    int numSz = getNumSize(num);
+    char curr;
+
+    for (int i = 0; i < numSz; i++) {
+        curr = num % 10;
+        curr += '0';
+        ans = curr + ans;
+
+        num /= 10;
+    }
+
+    return ans;
+}

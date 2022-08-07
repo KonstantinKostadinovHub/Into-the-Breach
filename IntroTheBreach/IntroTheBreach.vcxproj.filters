@@ -40,22 +40,7 @@
     <ClCompile Include="src\CTile.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity.cpp">
-      <Filter>src\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Health.cpp">
-      <Filter>src\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Healthbar.cpp">
-      <Filter>src\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Projectile.cpp">
-      <Filter>src\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Terrain.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Terrain.cpp">
+    <ClCompile Include="src\CTerrain.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,20 +66,8 @@
     <ClInclude Include="include\CTile.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Terrain.h">
+    <ClInclude Include="include\CTerrain.h">
       <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Entity.h">
-      <Filter>include\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Projectile.h">
-      <Filter>include\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Health.h">
-      <Filter>include\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Healthbar.h">
-      <Filter>include\Entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

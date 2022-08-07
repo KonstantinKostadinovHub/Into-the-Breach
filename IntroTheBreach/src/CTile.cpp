@@ -9,7 +9,6 @@ CTile::CTile() {
 	m_mainRenderer = nullptr;
 
 	m_texture = nullptr;
-	m_overlayTexture = nullptr;
 	m_shadowTexture = nullptr;
 
 	m_button.m_rect = { 0, 0, 1, 1 };
@@ -21,18 +20,21 @@ CTile::CTile() {
 	hovered = false;
 	selected = false;
 
+	water = false;
+
 	z_add = 0;
+
+	m_terrain = nullptr;
 }
 
 CTile::~CTile() {
 
 }
 
-void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* overlay_texture, SDL_Texture* shadow_texture, int2 coord, int size) {
+void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shadow_texture, int2 coord, int size, bool is_water, CTerrain* terrain) {
 	m_mainRenderer = renderer;
 
 	m_texture = texture;
-	m_overlayTexture = overlay_texture;
 	m_shadowTexture = shadow_texture;
 
 	m_button.m_rect.w = size;
@@ -65,9 +67,16 @@ void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* over
 
 	m_isomRectLifted = m_isomRect;
 	m_isomRectLifted.y -= z_add;
+
+	water = is_water;
+
+	m_terrain = terrain;
 }
 
 void CTile::update() {
+	if (water) {
+		return;
+	}
 	int2 tmp = screenToGridCoords(InputManager::m_mouseCoord);
 
 	if (hovered) {
@@ -94,11 +103,13 @@ void CTile::update() {
 void CTile::draw() {
 	if (hovered || m_button.button_down || selected) {
 		SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRectLifted);
-		SDL_RenderCopy(m_mainRenderer, m_overlayTexture, NULL, &m_isomRectLifted);
+
+		m_terrain->giveCentralPoint({ m_isomRectLifted.x + m_isomRectLifted.w / 2 , m_isomRectLifted.y + m_isomRectLifted.h / 2 });
 	}
 	else {
 		SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRect);
-		SDL_RenderCopy(m_mainRenderer, m_overlayTexture, NULL, &m_isomRect);
+
+		m_terrain->giveCentralPoint({ m_isomRect.x + m_isomRect.w / 2 , m_isomRect.y + m_isomRect.h / 2 });
 	}
 
 	if (selected) {

@@ -1,0 +1,15 @@
+grass
+
+0 0 0 0 0 W W 0
+0 0 0 0 W W 0 0
+0 0 0 W W W 0 0
+0 0 0 0 0 0 0 0
+0 0 W W W 0 0 0
+0 0 0 W 0 0 0 0
+0 W W W 0 0 0 0
+W W 0 0 0 0 0 0
+
+0 - normal terrain
+W - water
+M - mountain
+T - tree

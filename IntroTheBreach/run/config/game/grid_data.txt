@@ -1,9 +1,3 @@
-m_tileDirtTextureFile: game\\tile\\dirt.bmp
-m_tileSandTextureFile: game\\tile\\sand.bmp
-m_overlayTextureFile: game\\tile\\overlay.bmp
-m_shadowTextureFile: game\\tile\\shadow.bmp
-
-m_grassColor: 20 205 80
-m_dryGrassColor: 240 195 85
-m_snowColor: 240 255 255
-m_darkColor: 50 50 50
+biomes: dark dirt dry grass sand snow
+m_tileTextureFile: game\terrain\ <biome_name>
+m_tileShadowTextureFile: game\tile\shadow.bmp
