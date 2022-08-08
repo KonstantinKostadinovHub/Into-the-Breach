@@ -1,0 +1,3 @@
+ - good terrain gen
+ - make the terrain a pointer
+ - make it so it lists files in directory

@@ -10,13 +10,14 @@ using std::vector;
 #include "CTile.h"
 #include "CTerrain.h"
 #include "Engine.h"
+#include "CMap.h"
 
 class CGrid {
 public:
 	CGrid();
 	~CGrid();
 
-	static const int M_SIZE = 8;
+	static const int M_SIZE = CMap::M_SIZE;
 	static const int TERRAIN_OBJECTS = 4;
 
 	SDL_Renderer* m_mainRenderer;
@@ -37,13 +38,26 @@ public:
 
 	int m_tileSize;
 
+	CMap* m_currMap;
+
 	CTile tile[M_SIZE][M_SIZE];
-	CTerrain terrain[M_SIZE][M_SIZE];
+	CTerrain* terrain[M_SIZE][M_SIZE];
 
 	int2 lastSelectedTile;
 	bool selectedTile;
 
+	void getBiomes();
+
+	void makeTile(int2 slot);
+	void makeTileFluid(int2 slot);
+
+	void makeTerrainNone(int2 slot);
+	void makeTerrainFluid(int2 slot);
+	void makeTerrainMountain(int2 slot);
+	void makeTerrainTree(int2 slot);
+
 	void init(SDL_Renderer* renderer);
+	void start(CMap* map);
 	void checkForOtherSelectedTiles(int2 CurrSelectedTileCoord);
 	void update();
 	void draw();

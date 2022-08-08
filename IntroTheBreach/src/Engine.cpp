@@ -1,3 +1,5 @@
+#include <array>
+
 #include "Engine.h"
 #include "Globals.h"
 
@@ -141,10 +143,11 @@ int2 gridToScreenCoords(int2 gridCoord) {
     int2 screenCoord;
 
     screenCoord.x = gridCoord.x - gridCoord.y + SCREEN_W / 2 - ISOM_TILE_W / 2;
-    screenCoord.y = (gridCoord.x + gridCoord.y) / 2 + (SCREEN_H - ISOM_TILE_H / 2 * (GRID_SIZE + 1)) / 2;
+    screenCoord.y = (gridCoord.x + gridCoord.y) / 2 + (SCREEN_H - ISOM_TILE_H / 2 * (GRID_SIZE + 1)) / 2 + TILE_SIZE / 2;
 
     return screenCoord;
 }
+
 float2 floatGridToScreenCoords(float2 gridCoord) {
     float2 screenCoord;
 
@@ -159,7 +162,7 @@ int2 screenToGridCoords(int2 screenCoords) {
     int2 tmp;
 
     tmp.x = screenCoords.x - SCREEN_W / 2;// +ISOM_TILE_W / 2;
-    tmp.y = screenCoords.y -(SCREEN_H - ISOM_TILE_H / 2 * (GRID_SIZE + 1)) / 2;
+    tmp.y = screenCoords.y - (SCREEN_H - ISOM_TILE_H / 2 * (GRID_SIZE + 1)) / 2 - TILE_SIZE / 2;
 
     gridCoord.x = tmp.x / 2 + tmp.y;
     gridCoord.y = tmp.y * 2 - gridCoord.x;
@@ -238,4 +241,33 @@ string intToStr(int num) {
     }
 
     return ans;
+}
+
+string wstrToStr(const std::wstring& wstr)
+{
+    const int BUFF_SIZE = 7;
+
+    if (MB_CUR_MAX >= BUFF_SIZE) {
+        throw std::invalid_argument("BUFF_SIZE too small");
+    }
+    string result;
+
+    #pragma warning(suppress : 4996)
+    bool shifts = std::wctomb(nullptr, 0);  // reset the conversion state
+
+    for (const wchar_t wc : wstr)
+    {
+        std::array<char, BUFF_SIZE> buffer;
+
+        #pragma warning(suppress : 4996)
+        const int ret = std::wctomb(buffer.data(), wc);
+
+        if (ret < 0) {
+            throw std::invalid_argument("inconvertible wide characters in the current locale");
+        }
+        buffer[ret] = '\0';  // make 'buffer' contain a C-style string
+
+        result += std::string(buffer.data());
+    }
+    return result;
 }

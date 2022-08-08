@@ -21,6 +21,21 @@ CGame::~CGame() {
 
 }
 
+void CGame::loadMap(int lvl) {
+	ifstream fin;
+	fin.open("levels\\" + intToStr(lvl) + ".lvl");
+
+	fin >> m_currMap.m_biome;
+
+	for (int yy = 0; yy < CMap::M_SIZE; yy++) {
+		for (int xx = 0; xx < CMap::M_SIZE; xx++) {
+			fin >> m_currMap.m_map[xx][yy];
+		}
+	}
+
+	fin.close();
+}
+
 void CGame::init(SDL_Renderer* renderer) {
 	m_mainRenderer = renderer;
 
@@ -52,7 +67,10 @@ void CGame::init(SDL_Renderer* renderer) {
 		m_bgrRect.x = (SCREEN_W - m_bgrRect.w) / 2;
 	}
 
+	loadMap(0);
+
 	m_grid.init(m_mainRenderer);
+	m_grid.start(&m_currMap);
 }
 
 void CGame::update() {
@@ -62,7 +80,6 @@ void CGame::update() {
 void CGame::draw() {
 	SDL_RenderCopy(m_mainRenderer, m_bgrTexture, NULL, &m_bgrRect);
 	SDL_RenderCopy(m_mainRenderer, m_bgrTextureOverlay, NULL, &m_bgrRect);
-
 	m_grid.draw();
 }
 

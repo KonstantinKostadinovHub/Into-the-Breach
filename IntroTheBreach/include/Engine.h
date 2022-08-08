@@ -95,3 +95,5 @@ bool collidingRectAndPoint(SDL_Rect rect, int2 point);
 
 int getNumSize(int num);
 string intToStr(int num);
+
+string wstrToStr(const std::wstring& wstr);

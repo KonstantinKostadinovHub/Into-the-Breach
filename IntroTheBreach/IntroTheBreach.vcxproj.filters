@@ -17,20 +17,14 @@
     <Filter Include="include\Entity">
       <UniqueIdentifier>{10a6bb46-a4ee-46a3-a66f-d81c76063082}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\General">
+      <UniqueIdentifier>{7f8e985f-9ff5-4c40-82a2-7520a52e7122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\General">
+      <UniqueIdentifier>{88f34923-98d3-45b8-9994-ff29359fe7f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Globals.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CWorld.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\CGame.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -43,20 +37,39 @@
     <ClCompile Include="src\CTerrain.cpp">
       <Filter>src</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\Globals.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CWorld.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClCompile Include="src\InputManger.cpp">
+    <ClCompile Include="src\Projectile.cpp" />
+    <ClCompile Include="src\CMountain.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClInclude Include="include\Engine.h">
-      <Filter>include</Filter>
-    </ClInclude>
+    <ClCompile Include="src\CTree.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputManger.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Globals.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CWorld.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CMap.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CFluid.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CNoTerrain.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="include\CGame.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -69,9 +82,34 @@
     <ClInclude Include="include\CTerrain.h">
       <Filter>include</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
+    <ClInclude Include="include\Health.h" />
+    <ClInclude Include="include\Healthbar.h" />
+    <ClInclude Include="include\Projectile.h" />
+    <ClInclude Include="include\CMountain.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CTree.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Globals.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
     <ClInclude Include="include\InputManger.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CWorld.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CMap.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CFluid.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CNoTerrain.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

@@ -17,11 +17,13 @@ public:
 	SDL_Texture* m_texture;
 	SDL_Rect m_rect;
 
-	string m_type;
+	int m_health;
 
-	void init(SDL_Renderer* renderer, SDL_Texture* texture, string type, int2 size);
+	virtual string getType();
+
+	virtual void init(SDL_Renderer* renderer, SDL_Texture* texture, int2 size);
 	void giveCentralPoint(int2 coord);
-	void update();
-	void draw();
-	void quit();
+	virtual void update();
+	virtual void draw();
+	virtual void quit();
 };

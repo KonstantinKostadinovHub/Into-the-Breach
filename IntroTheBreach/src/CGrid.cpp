@@ -1,3 +1,4 @@
+#include <Windows.h>
 #include <iostream>
 #include <fstream>
 #include <ctime>
@@ -9,6 +10,10 @@ using std::cout;
 #include "Globals.h"
 #include "Engine.h"
 #include "CGrid.h"
+#include "CNoTerrain.h"
+#include "CFluid.h"
+#include "CMountain.h"
+#include "CTree.h"
 
 CGrid::CGrid() {
 	m_mainRenderer = nullptr;
@@ -26,7 +31,35 @@ CGrid::~CGrid() {
 
 }
 
+void CGrid::getBiomes() {
+	vector <std::string> v;
+
+	WIN32_FIND_DATA data;
+	HANDLE hFind = FindFirstFile(L"img\\game\\terrain\\*", &data);
+
+	if (hFind != INVALID_HANDLE_VALUE) {
+		do {
+			v.push_back(wstrToStr(std::wstring(data.cFileName)));
+		} while (FindNextFile(hFind, &data));
+
+		FindClose(hFind);
+	}
+
+	for (int i = 0; i < v.size(); i++) {
+		if (v[i] == string(".") || v[i] == string("..")) {
+			v.erase(v.begin() + i);
+			i--;
+		}
+		else {
+			std::cout << v[i] << '\n';
+		}
+	}
+	cout << v.size() << '\n';
+}
+
+
 void CGrid::init(SDL_Renderer* renderer) {
+	getBiomes();
 	m_mainRenderer = renderer;
 
 	string label;
@@ -54,48 +87,11 @@ void CGrid::init(SDL_Renderer* renderer) {
 		}
 	}
 
-
 	fin >> label >> m_tileTextureFiles >> label;
 
 	fin >> label >> m_tileShadowTextureFile;
 	
 	fin.close();
-
-	//for (int i = 0; i < (int)biomes.size(); i++) {
-	//	std::cout << biomes[i] << " ";
-	//}
-	//cout << '\n';
-
-	int index = rand() % (int)biomes.size();
-
-
-	fin.open("config\\game\\terrain\\" + biomes[index] + "\\count.txt");
-	
-	for (int i = 0; i < TERRAIN_OBJECTS; i++) {
-		fin >> terrainObjectsCnt[i];
-
-		cout << terrainObjectsCnt[i] << " ";
-	}
-
-	fin.close();
-
-	for (int i = 0; i < terrainObjectsCnt[0]; i++) {
-		m_tileTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + biomes[index] + "\\tile" + intToStr(i + 1) + ".bmp"));
-	}
-	for (int i = 0; i < terrainObjectsCnt[1]; i++) {
-		m_tileFluidTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + biomes[index] + "\\fluid" + intToStr(i + 1) + ".bmp"));
-	}
-	for (int i = 0; i < terrainObjectsCnt[2]; i++) {
-		m_mountainTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + biomes[index] + "\\mountain" + intToStr(i + 1) + ".bmp"));
-	}
-	for (int i = 0; i < terrainObjectsCnt[3]; i++) {
-		m_treeTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + biomes[index] + "\\tree" + intToStr(i + 1) + ".bmp"));
-	}
-	//m_tileTexture = loadTexture(m_mainRenderer, m_tileTextureFiles + biomes[index] + "\\tile1.bmp");
-	//m_tileFluidTexture = loadTexture(m_mainRenderer, m_tileTextureFiles + biomes[index] + "\\fluid1.bmp");
-	//m_mountainTexture = loadTexture(m_mainRenderer, m_tileTextureFiles + biomes[index] + "\\mountain1.bmp");
-	//m_tree1Texture = loadTexture(m_mainRenderer, m_tileTextureFiles + biomes[index] + "\\tree1.bmp");
-	//m_tree2Texture = loadTexture(m_mainRenderer, m_tileTextureFiles + biomes[index] + "\\tree2.bmp");
 
 	m_tileShadowTexture = loadTexture(m_mainRenderer, m_tileShadowTextureFile);
 
@@ -109,30 +105,146 @@ void CGrid::init(SDL_Renderer* renderer) {
 	CTile::m_gridSize = M_SIZE;
 
 	giveTileSize(m_tileSize, m_tileSize * 2, m_tileSize * 2, M_SIZE);
+}
+
+
+void CGrid::makeTile(int2 slot) {
+	int indexTile = rand() % (int)m_tileTexture.size();
+
+	tile[slot.x][slot.y].init(m_mainRenderer, m_tileTexture[indexTile], m_tileShadowTexture, { slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, false, terrain[slot.x][slot.y]);
+}
+
+void CGrid::makeTileFluid(int2 slot) {
+	int indexFluid = rand() % (int)m_tileFluidTexture.size();
+
+	tile[slot.x][slot.y].init(m_mainRenderer, m_tileFluidTexture[indexFluid], m_tileShadowTexture, { slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, true, terrain[slot.x][slot.y]);
+}
+
+void CGrid::makeTerrainNone(int2 slot) {
+	CNoTerrain* tmp_none = new CNoTerrain();
+
+	terrain[slot.x][slot.y] = tmp_none;
+}
+
+void CGrid::makeTerrainFluid(int2 slot) {
+	CFluid* tmp_fluid = new CFluid();
+	tmp_fluid->init(m_mainRenderer, nullptr, { m_tileSize * 2, m_tileSize * 2 });
+
+	terrain[slot.x][slot.y] = tmp_fluid;
+}
+
+void CGrid::makeTerrainMountain(int2 slot) {
+	int indexMountainType = rand() % (int)m_mountainTexture.size();
+
+	CMountain* tmp_mountain = new CMountain();
+	tmp_mountain->init(m_mainRenderer, m_mountainTexture[indexMountainType], { m_tileSize * 2, m_tileSize * 2 });
+
+	terrain[slot.x][slot.y] = tmp_mountain;
+}
+
+void CGrid::makeTerrainTree(int2 slot) {
+	int indexTree = rand() % (int)m_treeTexture.size();
+
+	CTree* tmp_tree = new CTree();
+	tmp_tree->init(m_mainRenderer, m_treeTexture[indexTree], { m_tileSize * 2, m_tileSize * 2 });
+
+	terrain[slot.x][slot.y] = tmp_tree;
+}
+
+
+
+void CGrid::start(CMap* map) {
+	m_currMap = map;
+
+	ifstream fin;
+
+	string currBiome;
+
+	if (m_currMap->m_biome == "0") {
+		int index = rand() % (int)biomes.size();
+		currBiome = biomes[index];
+	}
+	else {
+		currBiome = m_currMap->m_biome;
+	}
+
+	fin.open("config\\game\\terrain\\" + currBiome + "\\count.txt");
+	
+	for (int i = 0; i < TERRAIN_OBJECTS; i++) {
+		fin >> terrainObjectsCnt[i];
+	}
+
+	fin.close();
+
+
+	for (int i = 0; i < terrainObjectsCnt[0]; i++) {
+		m_tileTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + currBiome + "\\tile" + intToStr(i + 1) + ".bmp"));
+	}
+	for (int i = 0; i < terrainObjectsCnt[1]; i++) {
+		m_tileFluidTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + currBiome + "\\fluid" + intToStr(i + 1) + ".bmp"));
+	}
+	for (int i = 0; i < terrainObjectsCnt[2]; i++) {
+		m_mountainTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + currBiome + "\\mountain" + intToStr(i + 1) + ".bmp"));
+	}
+	for (int i = 0; i < terrainObjectsCnt[3]; i++) {
+		m_treeTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + currBiome + "\\tree" + intToStr(i + 1) + ".bmp"));
+	}
 
 	for (int yy = 0; yy < M_SIZE; yy++) {
 		for (int xx = 0; xx < M_SIZE; xx++) {
-			int indexTile = rand() % (int)m_tileTexture.size();
+			if (m_currMap->m_map[xx][yy] == '0') {
+				makeTerrainNone({ xx, yy });
 
-			tile[xx][yy].init(m_mainRenderer, m_tileTexture[indexTile], m_tileShadowTexture, { xx * m_tileSize, yy * m_tileSize }, m_tileSize, false, &terrain[xx][yy]);
-			
-
-			int indexTerrainType = rand() % 8;
-
-			if (indexTerrainType == 0) {
-				int indexMountainType = rand() % (int)m_mountainTexture.size();
-				terrain[xx][yy].init(m_mainRenderer, m_mountainTexture[indexMountainType], "", { m_tileSize * 2, m_tileSize * 2 });
+				makeTile({ xx, yy });
 			}
-			if (indexTerrainType == 1) {
-				int indexTreeType = rand() % (int)m_treeTexture.size();
-				terrain[xx][yy].init(m_mainRenderer, m_treeTexture[indexTreeType], "", { m_tileSize * 2, m_tileSize * 2 });
+			else if (m_currMap->m_map[xx][yy] == 'W') {
+				makeTerrainFluid({ xx, yy });
+
+				makeTileFluid({ xx, yy });
+			}
+			else if (m_currMap->m_map[xx][yy] == 'M') {
+				makeTerrainMountain({ xx, yy });
+				
+				makeTile({ xx, yy });
+			}
+			else if (m_currMap->m_map[xx][yy] == 'T') {
+				makeTerrainTree({ xx, yy });
+
+				makeTile({ xx, yy });
+			}
+			else {
+				int indexTerrainType = rand() % 11;
+
+				if (indexTerrainType == 0) {
+					makeTerrainFluid({ xx, yy });
+				}
+				else if (indexTerrainType == 1) {
+					makeTerrainMountain({ xx, yy });
+				}
+				else if (indexTerrainType == 2) {
+					makeTerrainTree({ xx, yy });
+				}
+				else {
+					makeTerrainNone({ xx, yy });
+				}
+
+				if (indexTerrainType == 0) {
+					makeTileFluid({ xx, yy });
+				}
+				else {
+					makeTile({ xx, yy });
+				}
 			}
 
-			terrain[xx][yy].giveCentralPoint({ tile[xx][yy].m_isomRect.x + tile[xx][yy].m_isomRect.w / 2,
-				tile[xx][yy].m_isomRect.y + tile[xx][yy].m_isomRect.h / 2 });
+			//terrain[xx][yy]->giveCentralPoint({ tile[xx][yy].m_isomRect.x + tile[xx][yy].m_isomRect.w / 2,
+			//		tile[xx][yy].m_isomRect.y + tile[xx][yy].m_isomRect.h / 2 });
+
+			cout << terrain[xx][yy]->getType() << "   ";
 		}
+		cout << '\n';
 	}
 }
+
 
 void CGrid::checkForOtherSelectedTiles(int2 CurrSelectedTileCoord) {
 	if (tile[CurrSelectedTileCoord.x][CurrSelectedTileCoord.y].selected && 
@@ -155,7 +267,9 @@ void CGrid::update() {
 
 			checkForOtherSelectedTiles({ xx, yy });
 
-			terrain[xx][yy].update();
+			//std::cout << "asd\n";
+			terrain[xx][yy]->update();
+			//std::cout << "aaaaaaaaaaasssdddddddddd\n";
 		}
 	}
 }
@@ -165,7 +279,7 @@ void CGrid::draw() {
 		for (int xx = 0; xx < M_SIZE; xx++) {
 			tile[xx][yy].draw();
 
-			terrain[xx][yy].draw();
+			terrain[xx][yy]->draw();
 		}
 	}
 }
@@ -175,7 +289,7 @@ void CGrid::quit() {
 		for (int xx = 0; xx < M_SIZE; xx++) {
 			tile[xx][yy].quit();
 			
-			terrain[xx][yy].quit();
+			terrain[xx][yy]->quit();
 		}
 	}
 

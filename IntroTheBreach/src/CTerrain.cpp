@@ -6,20 +6,21 @@ CTerrain::CTerrain() {
 	m_texture = nullptr;
 	m_rect = { 0, 0, 1, 1 };
 
-	m_type = "";
+	m_health = 1;
 }
 
 CTerrain::~CTerrain() {
 
 }
 
-void CTerrain::init(SDL_Renderer* renderer, SDL_Texture* texture, string type, int2 size) {
+string CTerrain::getType() {
+	return "ERR";
+}
+
+void CTerrain::init(SDL_Renderer* renderer, SDL_Texture* texture, int2 size) {
 	m_mainRenderer = renderer;
 
 	m_texture = texture;
-
-	m_type = type;
-
 	m_rect.w = size.x;
 	m_rect.h = size.y;
 }
@@ -30,7 +31,7 @@ void CTerrain::giveCentralPoint(int2 coord) {
 }
 
 void CTerrain::update() {
-
+	//std::cout << "WHY\n";
 }
 
 void CTerrain::draw() {
