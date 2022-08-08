@@ -14,12 +14,12 @@ public:
 	static SDL_Texture* m_HEALTHBAR_TEXTURE;
 	SDL_Rect m_rect;
 	int m_maxHealth;
-	int m_healthLeft;
 
 	std::vector<Health> m_health;
 
-	bool m_delete;
+	bool m_healthDepleted;
 
 	void draw(SDL_Renderer* renderer);
+	void decreaseHealth(int decrease);
 	void setCoords(int2 coords);
 };

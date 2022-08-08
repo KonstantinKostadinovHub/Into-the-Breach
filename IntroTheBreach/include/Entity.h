@@ -24,7 +24,7 @@ public:
 	std::vector<Projectile> m_projectile;
 	Healthbar m_healthbar;
 
-	int m_healthLeft;
+	bool m_dead;
 
 	bool m_moving;
 	float2 m_moveSpeed;
@@ -32,9 +32,12 @@ public:
 
 	void draw(SDL_Renderer* renderer);
 	void update();
+	
 	void moveToTile(int tileCol, int tileRow);
 	void continueMoving();
 	void attack(int attackedTileCol, int attackedTileRow);
+	void decreaseHealth(int decrease);
+
 	void setCoordsOnTile(int tileCol, int tileRow);
 	void setCenterCoords(int2 centerCoords);
 	void setBottomCenterCoords(int2 bottomCenterCoords);
