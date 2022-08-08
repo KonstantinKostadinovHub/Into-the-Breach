@@ -149,11 +149,13 @@
     <ClCompile Include="src\CTile.cpp" />
     <ClCompile Include="src\CWorld.cpp" />
     <ClCompile Include="src\Engine.cpp" />
+    <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\Globals.cpp" />
+    <ClCompile Include="src\Health.cpp" />
+    <ClCompile Include="src\Healthbar.cpp" />
     <ClCompile Include="src\InputManger.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
-    <ClCompile Include="src\Terrain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CGame.h" />
@@ -162,11 +164,11 @@
     <ClInclude Include="include\CTile.h" />
     <ClInclude Include="include\CWorld.h" />
     <ClInclude Include="include\Engine.h" />
+    <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\Globals.h" />
     <ClInclude Include="include\Health.h" />
     <ClInclude Include="include\Healthbar.h" />
     <ClInclude Include="include\Projectile.h" />
-    <ClInclude Include="include\Terrain.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\InputManger.h" />

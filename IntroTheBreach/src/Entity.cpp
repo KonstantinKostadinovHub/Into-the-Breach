@@ -3,13 +3,14 @@
 Entity::Entity() {
 }
 
-Entity::Entity(int st_tileCol, int st_tileRow, int health) {
+Entity::Entity(int st_tileCol, int st_tileRow, int health, bool enemy) {
 	m_rect.w = 60;
 	m_rect.h = 78;
-	
+	m_enemy = enemy;
+
 	setCoordsOnTile(st_tileCol, st_tileRow);
 	
-	m_healthbar = Healthbar(health, int2(m_rect.x + m_rect.w / 2, m_rect.y - HEALTHBAR_OFFSET_FROM_ENTITY));
+	m_healthbar = Healthbar(health, int2(m_rect.x + m_rect.w / 2, m_rect.y - HEALTHBAR_OFFSET_FROM_ENTITY), m_enemy);
 
 	m_dead = false;
 	m_moving = false;
@@ -33,11 +34,13 @@ void Entity::update() {
 		continueMoving();
 	}
 	for (int i = 0; i < m_projectile.size(); i++) {
-		m_projectile[i].update();
-		if (m_projectile[i].m_delete) {
-			m_projectile.erase(m_projectile.begin() + i);
-			i--;
+		if (!m_projectile[i].m_delete) {
+			m_projectile[i].update();
 		}
+		//if (m_projectile[i].m_delete) {
+		//	m_projectile.erase(m_projectile.begin() + i);
+		//	i--;
+		//}
 	}
 }
 
@@ -50,6 +53,8 @@ void Entity::moveToTile(int tileCol, int tileRow) {
 	m_moveSpeed.x = (tileCol - m_curTile.first + 0.f) * TILE_SIZE / ENTITY_KNOCKBACK_TICKS;
 	m_moveSpeed.y = (tileRow - m_curTile.second + 0.f) * TILE_SIZE / ENTITY_KNOCKBACK_TICKS;
 
+	m_curTile.first = tileCol;
+	m_curTile.second = tileCol;
 	m_destinationTile.first = tileCol;
 	m_destinationTile.second = tileRow;
 }

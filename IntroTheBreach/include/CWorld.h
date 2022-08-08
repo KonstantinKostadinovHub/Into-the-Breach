@@ -4,15 +4,10 @@
 
 #include "InputManger.h"
 #include "Projectile.h"
+#include "Entity.h"
 #include "CGame.h"
-<<<<<<< HEAD
-//#include "Entity.h"
-//#include "Healthbar.h"
-//#include "Health.h"
-=======
 #include "Healthbar.h"
 #include "Health.h"
->>>>>>> 94f87c873c403aba84a2369421c75bfb476ffe8a
 
 class CWorld {
 public:

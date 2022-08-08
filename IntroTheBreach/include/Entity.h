@@ -11,7 +11,7 @@ using std::pair;
 class Entity {
 public:
 	Entity();
-	Entity(int st_tileCol, int st_tileRow, int health);
+	Entity(int st_tileCol, int st_tileRow, int health, bool enemy);
 	~Entity();
 
 	SDL_Texture* m_texture;
@@ -24,11 +24,13 @@ public:
 	std::vector<Projectile> m_projectile;
 	Healthbar m_healthbar;
 
+	int m_type;
+	bool m_enemy;
+
 	bool m_dead;
 
 	bool m_moving;
 	float2 m_moveSpeed;
-
 
 	void draw(SDL_Renderer* renderer);
 	void update();

@@ -7,9 +7,10 @@ SDL_Texture* Healthbar::m_HEALTHBAR_TEXTURE;
 Healthbar::Healthbar() {
 }
 
-Healthbar::Healthbar(int health, int2 centerCoords) {
+Healthbar::Healthbar(int health, int2 centerCoords, bool enemy) {
 	m_rect = {centerCoords.x - HEALTHBAR_W / 2, centerCoords.y - HEALTHBAR_H / 2 , HEALTHBAR_W, HEALTHBAR_H};
 	m_healthDepleted = false;
+	m_enemy = enemy;
 
 	m_maxHealth = health;
 
@@ -19,7 +20,7 @@ Healthbar::Healthbar(int health, int2 centerCoords) {
 	bool thicker = false;
 
 	for (int i = 0; i < health; i++) {
-		m_health.push_back(Health(health_coords, health_w + thicker));
+		m_health.push_back(Health(health_coords, health_w + thicker, m_enemy));
 		if (thicker) {
 			health_coords.x++;
 			thicker = false;

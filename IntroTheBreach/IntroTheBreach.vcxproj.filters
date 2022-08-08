@@ -8,71 +8,99 @@
     <Filter Include="include">
       <UniqueIdentifier>{9f4c89c4-49c5-451c-b19e-2d37cb79ce1e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{fb6a6443-f212-4b7a-b6ec-7a39668db4f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Entity">
-      <UniqueIdentifier>{430b8dd4-4633-4393-bb21-b54e099dce22}</UniqueIdentifier>
-    </Filter>
     <Filter Include="include\Entity">
       <UniqueIdentifier>{10a6bb46-a4ee-46a3-a66f-d81c76063082}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{3c1cc19e-c535-487b-bc27-e25a6afe9b27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Entity">
+      <UniqueIdentifier>{8f200f5a-fb06-4767-9d3c-4fd208888aa3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\General">
+      <UniqueIdentifier>{8b3341f3-b8ad-4a4c-a617-837fbe651b91}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\General">
+      <UniqueIdentifier>{02b9c6c3-f69e-4752-b562-1d088c187115}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Globals.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CWorld.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CGame.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\CGrid.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CTile.cpp">
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\CTerrain.cpp">
       <Filter>src</Filter>
     </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\Globals.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CWorld.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClCompile Include="src\InputManger.cpp">
+    <ClCompile Include="src\CTile.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClInclude Include="include\Engine.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CGame.h">
-      <Filter>include</Filter>
-    </ClInclude>
+    <ClCompile Include="src\Entity.cpp">
+      <Filter>src\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Health.cpp">
+      <Filter>src\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Healthbar.cpp">
+      <Filter>src\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Projectile.cpp">
+      <Filter>src\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CWorld.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Globals.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputManger.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CGame.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
     <ClInclude Include="include\CGrid.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CTile.h">
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\CTerrain.h">
       <Filter>include</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\InputManger.h">
+    <ClInclude Include="include\CTile.h">
       <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Health.h">
+      <Filter>include\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Healthbar.h">
+      <Filter>include\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Projectile.h">
+      <Filter>include\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entity.h">
+      <Filter>include\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CWorld.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Globals.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
+    <ClInclude Include="include\InputManger.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CGame.h">
+      <Filter>include\General</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
