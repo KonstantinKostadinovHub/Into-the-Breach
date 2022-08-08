@@ -4,7 +4,6 @@
 
 #include "InputManger.h"
 #include "Projectile.h"
-#include "Entity.h"
 #include "CGame.h"
 #include "Healthbar.h"
 #include "Health.h"

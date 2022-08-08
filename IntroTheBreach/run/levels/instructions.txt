@@ -1,0 +1,9 @@
+The first character represents the biome of the map ('0' for random).
+
+The following grid represents the map. Here are the characters' meanings:
+
+0 - normal terrain
+W - water
+M - mountain
+T - tree
+X - random
