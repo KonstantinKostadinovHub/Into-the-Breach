@@ -8,9 +8,9 @@ Projectile::Projectile() {
 Projectile::Projectile(int st_tileCol, int st_tileRow, int destinationTileCol, int destinationTileRow) {
 	m_rect.w = PROJECTILE_SIZE;
 	m_rect.h = PROJECTILE_SIZE;
-	
-	m_realCoords = gridToScreenCoords(int2(st_tileCol * TILE_SIZE - TILE_SIZE / 2, st_tileRow * TILE_SIZE - TILE_SIZE / 2));
-	m_destinationCoords = gridToScreenCoords(int2(destinationTileCol * TILE_SIZE - TILE_SIZE / 2, destinationTileRow * TILE_SIZE - TILE_SIZE / 2));
+
+	m_realCoords = int2(st_tileCol * TILE_SIZE + TILE_SIZE / 2, st_tileRow * TILE_SIZE + TILE_SIZE / 2);
+	m_destinationCoords = int2(destinationTileCol * TILE_SIZE + TILE_SIZE / 2, destinationTileRow * TILE_SIZE + TILE_SIZE / 2);
 	m_z = 0;
 
 	m_vel.z = 15;
@@ -40,7 +40,7 @@ void Projectile::update() {
 		m_delete = true;
 	}
 
-	int2 temp = gridToScreenCoords(m_realCoords);
+	int2 temp = normalToIsom(m_realCoords);
 	m_rect.x = temp.x;
 	m_rect.y = temp.y - m_z;
 }

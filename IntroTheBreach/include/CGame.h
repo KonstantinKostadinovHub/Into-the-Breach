@@ -26,7 +26,7 @@ public:
 	CMap m_currMap;
 
 	void loadMap(int lvl);
-
+	
 	void init(SDL_Renderer* renderer);
 	void update();
 	void draw();

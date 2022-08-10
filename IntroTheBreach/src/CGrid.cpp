@@ -148,6 +148,45 @@ void CGrid::makeTerrainTree(int2 slot) {
 	terrain[slot.x][slot.y] = tmp_tree;
 }
 
+void CGrid::loadPowerhouses(int lvl)
+{
+	int s, m, l;
+
+	// read from file
+	ifstream stream;
+	stream.open("levels\\powerhouses_" + std::to_string(lvl) + ".lvl");
+
+	stream >> s >> m >> l;
+
+	stream.close();
+
+	// generate randomly
+	makePowerhouseBySize(POWERHOUSE::SMALL, s);
+	makePowerhouseBySize(POWERHOUSE::MID, m);
+	makePowerhouseBySize(POWERHOUSE::LARGE, l);
+}
+
+void CGrid::makePowerhouseBySize(POWERHOUSE type, int quantity)
+{
+	while (quantity > 0)
+	{
+
+		int x = rand() % CMap::M_SIZE;
+		int y = rand() % CMap::M_SIZE;
+
+		cout << quantity << " " << x << " " << y << '\n';
+
+		Powerhouse* ph = new Powerhouse();
+
+		ph->init(m_mainRenderer, POWERHOUSE::SMALL, 1);
+
+		if (tile[x][y].addPowerhouse(ph))
+		{
+			quantity--;
+		}
+	}
+}
+
 void CGrid::start(CMap* map) {
 	m_currMap = map;
 
@@ -238,6 +277,8 @@ void CGrid::start(CMap* map) {
 		}
 		cout << '\n';
 	}
+
+	loadPowerhouses(0);
 }
 
 

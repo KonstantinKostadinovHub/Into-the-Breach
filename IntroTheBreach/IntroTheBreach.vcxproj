@@ -160,6 +160,7 @@
     <ClCompile Include="src\Healthbar.cpp" />
     <ClCompile Include="src\InputManger.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Powerhouse.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +177,9 @@
     <ClInclude Include="include\Engine.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\Globals.h" />
+    <ClInclude Include="include\Powerhouse.h" />
+    <ClInclude Include="include\Health.h" />
+    <ClInclude Include="include\Healthbar.h" />
     <ClInclude Include="include\Projectile.h" />
   </ItemGroup>
   <ItemGroup>

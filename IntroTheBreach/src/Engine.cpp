@@ -133,13 +133,14 @@ void giveTileSize(int tileSize, int isomTileW, int isomTileH, int gridSize) {
 int2 normalToIsom(int2 coord) {
     int2 isomCoord;
 
-    isomCoord.x = -1 * ISOM_TILE_W / 2 + ((coord.x - coord.y) * ISOM_TILE_W / 2 / TILE_SIZE);
-    isomCoord.y = ((coord.x + coord.y) * (ISOM_TILE_H / 4) / TILE_SIZE);
+    isomCoord.x = SCREEN_W / 2 +                           ((coord.x - coord.y) * (ISOM_TILE_W / 2) / TILE_SIZE);
+    isomCoord.y = (SCREEN_H - (8 * ISOM_TILE_H / 2)) / 2 + ((coord.x + coord.y) * (ISOM_TILE_H / 4) / TILE_SIZE);
 
     return isomCoord;
 }
 
 int2 gridToScreenCoords(int2 gridCoord) {
+    //Centers automaticly
     int2 screenCoord;
 
     screenCoord.x = gridCoord.x - gridCoord.y + SCREEN_W / 2;// -ISOM_TILE_W / 2;

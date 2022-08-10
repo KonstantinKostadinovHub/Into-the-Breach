@@ -63,6 +63,9 @@ public:
 
 	void move();
 
+	void loadPowerhouses(int lvl);
+	void makePowerhouseBySize(POWERHOUSE type, int quantity);
+
 	void init(SDL_Renderer* renderer);
 	void start(CMap* map);
 	void checkForOtherSelectedTiles(int2 CurrSelectedTileCoord);

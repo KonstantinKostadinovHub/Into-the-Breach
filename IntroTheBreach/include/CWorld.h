@@ -5,11 +5,6 @@
 #include "InputManger.h"
 #include "Projectile.h"
 #include "CGame.h"
-
-//#include "Entity.h"
-//#include "Healthbar.h"
-//#include "Health.h"
-
 #include "Healthbar.h"
 #include "Health.h"
 

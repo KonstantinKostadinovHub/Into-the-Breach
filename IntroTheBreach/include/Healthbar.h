@@ -8,7 +8,7 @@
 class Healthbar {
 public:
 	Healthbar();
-	Healthbar(int health, int2 centerCoords);
+	Healthbar(int health, int2 centerCoords, bool enemy);
 	~Healthbar();
 
 	static SDL_Texture* m_HEALTHBAR_TEXTURE;
@@ -16,6 +16,8 @@ public:
 	int m_maxHealth;
 
 	std::vector<Health> m_health;
+
+	bool m_enemy;
 
 	bool m_healthDepleted;
 

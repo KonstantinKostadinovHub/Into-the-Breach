@@ -8,6 +8,7 @@ using std::string;
 #include "CTerrain.h"
 #include "Engine.h"
 #include "InputManger.h"
+#include "Powerhouse.h"
 
 class CTile {
 public:
@@ -34,8 +35,12 @@ public:
 	SDL_Rect m_isomRectLifted;
 
 	CTerrain* m_terrain;
+	Powerhouse* m_powerhouse;
 
 	void init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shadow_texture, int2 coord, int size, bool is_water, CTerrain* terrain);
+
+	bool addPowerhouse(Powerhouse* powerhouse);
+
 	void update();
 	void draw();
 	void quit();
