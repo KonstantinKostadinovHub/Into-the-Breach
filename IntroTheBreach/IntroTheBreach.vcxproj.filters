@@ -37,7 +37,6 @@
     <ClCompile Include="src\CTerrain.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Projectile.cpp" />
     <ClCompile Include="src\CMountain.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -68,6 +67,10 @@
     <ClCompile Include="src\CNoTerrain.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entity.cpp" />
+    <ClCompile Include="src\Health.cpp" />
+    <ClCompile Include="src\Healthbar.cpp" />
+    <ClCompile Include="src\Projectile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CGame.h">
@@ -82,9 +85,6 @@
     <ClInclude Include="include\CTerrain.h">
       <Filter>include</Filter>
     </ClInclude>
-    <ClInclude Include="include\Health.h" />
-    <ClInclude Include="include\Healthbar.h" />
-    <ClInclude Include="include\Projectile.h" />
     <ClInclude Include="include\CMountain.h">
       <Filter>include</Filter>
     </ClInclude>
@@ -112,5 +112,9 @@
     <ClInclude Include="include\CNoTerrain.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="include\Entity.h" />
+    <ClInclude Include="include\Health.h" />
+    <ClInclude Include="include\Healthbar.h" />
+    <ClInclude Include="include\Projectile.h" />
   </ItemGroup>
 </Project>

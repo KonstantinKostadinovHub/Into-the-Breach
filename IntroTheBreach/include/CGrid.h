@@ -40,11 +40,16 @@ public:
 
 	CMap* m_currMap;
 
-	CTile tile[M_SIZE][M_SIZE];
+	CTile* tile[M_SIZE][M_SIZE];
 	CTerrain* terrain[M_SIZE][M_SIZE];
 
 	int2 lastSelectedTile;
 	bool selectedTile;
+
+	bool dragged;
+
+	int2 m_start_coords;
+	int2 m_distanceFromMouseToStart;
 
 	void getBiomes();
 
@@ -55,6 +60,8 @@ public:
 	void makeTerrainFluid(int2 slot);
 	void makeTerrainMountain(int2 slot);
 	void makeTerrainTree(int2 slot);
+
+	void move();
 
 	void init(SDL_Renderer* renderer);
 	void start(CMap* map);

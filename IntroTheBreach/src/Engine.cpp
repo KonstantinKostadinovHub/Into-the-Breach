@@ -142,7 +142,7 @@ int2 normalToIsom(int2 coord) {
 int2 gridToScreenCoords(int2 gridCoord) {
     int2 screenCoord;
 
-    screenCoord.x = gridCoord.x - gridCoord.y + SCREEN_W / 2 - ISOM_TILE_W / 2;
+    screenCoord.x = gridCoord.x - gridCoord.y + SCREEN_W / 2;// -ISOM_TILE_W / 2;
     screenCoord.y = (gridCoord.x + gridCoord.y) / 2 + (SCREEN_H - ISOM_TILE_H / 2 * (GRID_SIZE + 1)) / 2 + TILE_SIZE / 2;
 
     return screenCoord;
@@ -151,7 +151,7 @@ int2 gridToScreenCoords(int2 gridCoord) {
 float2 floatGridToScreenCoords(float2 gridCoord) {
     float2 screenCoord;
 
-    screenCoord.x = gridCoord.x - gridCoord.y + SCREEN_W / 2 - ISOM_TILE_W / 2;
+    screenCoord.x = gridCoord.x - gridCoord.y + SCREEN_W / 2;// -ISOM_TILE_W / 2;
     screenCoord.y = (gridCoord.x + gridCoord.y) / 2 + (SCREEN_H - ISOM_TILE_H / 2 * (GRID_SIZE + 1)) / 2;
 
     return screenCoord;
@@ -217,6 +217,8 @@ SDL_Texture2::~SDL_Texture2() {
 
 int getNumSize(int num)
 {
+    num = abs(num);
+
     for (int i = 0; i > -1; i++) {
         num /= 10;
 

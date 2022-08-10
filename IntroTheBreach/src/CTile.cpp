@@ -49,14 +49,9 @@ void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shad
 	int2 tmp;
 	tmp = gridToScreenCoords({ m_button.m_rect.x, m_button.m_rect.y });
 
-	if (align_with == 'w') {
-		z_add = SCREEN_W / 100;
-	}
-	else if (align_with == 'h') {
-		z_add = SCREEN_H / 50;
-	}
+	z_add = size / 5;
 
-	m_isomRect.x = tmp.x;
+	m_isomRect.x = tmp.x - m_isomRect.w / 2;
 	m_isomRect.y = tmp.y;
 
 	int m_rectLift = 0;// z_add * 1.414;

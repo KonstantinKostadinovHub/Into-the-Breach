@@ -10,6 +10,7 @@ using std::cout;
 #include "Globals.h"
 #include "Engine.h"
 #include "CGrid.h"
+#include "InputManger.h"
 #include "CNoTerrain.h"
 #include "CFluid.h"
 #include "CMountain.h"
@@ -25,6 +26,11 @@ CGrid::CGrid() {
 
 	lastSelectedTile = { -1, -1 };
 	selectedTile = false;
+
+	m_start_coords = { 0, 0 };
+	m_distanceFromMouseToStart = { 0, 0 };
+
+	dragged = false;
 }
 
 CGrid::~CGrid() {
@@ -32,60 +38,40 @@ CGrid::~CGrid() {
 }
 
 void CGrid::getBiomes() {
-	vector <std::string> v;
-
 	WIN32_FIND_DATA data;
 	HANDLE hFind = FindFirstFile(L"img\\game\\terrain\\*", &data);
 
 	if (hFind != INVALID_HANDLE_VALUE) {
 		do {
-			v.push_back(wstrToStr(std::wstring(data.cFileName)));
+			biomes.push_back(wstrToStr(std::wstring(data.cFileName)));
 		} while (FindNextFile(hFind, &data));
 
 		FindClose(hFind);
 	}
 
-	for (int i = 0; i < v.size(); i++) {
-		if (v[i] == string(".") || v[i] == string("..")) {
-			v.erase(v.begin() + i);
+	for (int i = 0; i < (int)biomes.size(); i++) {
+		if (biomes[i] == string(".") || biomes[i] == string("..")) {
+			biomes.erase(biomes.begin() + i);
 			i--;
 		}
 		else {
-			std::cout << v[i] << '\n';
+			std::cout << biomes[i] << '\n';
 		}
 	}
-	cout << v.size() << '\n';
+	cout << biomes.size() << '\n';
 }
 
 
 void CGrid::init(SDL_Renderer* renderer) {
-	getBiomes();
 	m_mainRenderer = renderer;
 
 	string label;
 
+	getBiomes();
+
 	ifstream fin;
+
 	fin.open("config\\game\\grid_data.txt");
-
-	fin >> label;
-
-	string str_biomes;
-	std::getline(fin, str_biomes);
-
-	std::stringstream biomeStream(str_biomes);
-
-	string currBiome;
-
-	while (true) {
-		biomeStream >> currBiome;
-
-		if (!biomeStream.fail()) {
-			biomes.push_back(currBiome);
-		}
-		else {
-			break;
-		}
-	}
 
 	fin >> label >> m_tileTextureFiles >> label;
 
@@ -96,28 +82,39 @@ void CGrid::init(SDL_Renderer* renderer) {
 	m_tileShadowTexture = loadTexture(m_mainRenderer, m_tileShadowTextureFile);
 
 	if (align_with == 'w') {
-		m_tileSize = SCREEN_W / M_SIZE / 2.4;
+		m_tileSize = SCREEN_W / 19;
 	}
 	else if (align_with == 'h') {
-		m_tileSize = SCREEN_H / M_SIZE / 1.2;
+		m_tileSize = SCREEN_H / 9.5;
 	}
 
 	CTile::m_gridSize = M_SIZE;
 
 	giveTileSize(m_tileSize, m_tileSize * 2, m_tileSize * 2, M_SIZE);
+
+	for (int yy = 0; yy < M_SIZE; yy++) {
+		for (int xx = 0; xx < M_SIZE; xx++) {
+			tile[xx][yy] = new CTile();
+		}
+	}
+
+	m_start_coords.x = gridToScreenCoords({ 0, 0 }).x;
+	m_start_coords.y = gridToScreenCoords({ 0, 0 }).y;
 }
 
 
 void CGrid::makeTile(int2 slot) {
 	int indexTile = rand() % (int)m_tileTexture.size();
 
-	tile[slot.x][slot.y].init(m_mainRenderer, m_tileTexture[indexTile], m_tileShadowTexture, { slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, false, terrain[slot.x][slot.y]);
+	tile[slot.x][slot.y]->init(m_mainRenderer, m_tileTexture[indexTile], m_tileShadowTexture, 
+		{ slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, false, terrain[slot.x][slot.y]);
 }
 
 void CGrid::makeTileFluid(int2 slot) {
 	int indexFluid = rand() % (int)m_tileFluidTexture.size();
 
-	tile[slot.x][slot.y].init(m_mainRenderer, m_tileFluidTexture[indexFluid], m_tileShadowTexture, { slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, true, terrain[slot.x][slot.y]);
+	tile[slot.x][slot.y]->init(m_mainRenderer, m_tileFluidTexture[indexFluid], m_tileShadowTexture, 
+		{ slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, true, terrain[slot.x][slot.y]);
 }
 
 void CGrid::makeTerrainNone(int2 slot) {
@@ -150,8 +147,6 @@ void CGrid::makeTerrainTree(int2 slot) {
 
 	terrain[slot.x][slot.y] = tmp_tree;
 }
-
-
 
 void CGrid::start(CMap* map) {
 	m_currMap = map;
@@ -246,12 +241,24 @@ void CGrid::start(CMap* map) {
 }
 
 
+void CGrid::move() {
+	if (InputManager::m_mousePressed) {
+		dragged = true;
+	}
+	if (InputManager::m_mouseReleased) {
+		dragged = false;
+	}
+
+
+}
+
+
 void CGrid::checkForOtherSelectedTiles(int2 CurrSelectedTileCoord) {
-	if (tile[CurrSelectedTileCoord.x][CurrSelectedTileCoord.y].selected && 
+	if (tile[CurrSelectedTileCoord.x][CurrSelectedTileCoord.y]->selected && 
 		(CurrSelectedTileCoord.x != lastSelectedTile.x || CurrSelectedTileCoord.y != lastSelectedTile.y)) {
 
 		if (selectedTile) {
-			tile[lastSelectedTile.x][lastSelectedTile.y].selected = false;
+			tile[lastSelectedTile.x][lastSelectedTile.y]->selected = false;
 		}
 		selectedTile = true;
 
@@ -263,7 +270,7 @@ void CGrid::checkForOtherSelectedTiles(int2 CurrSelectedTileCoord) {
 void CGrid::update() {
 	for (int yy = 0; yy < M_SIZE; yy++) {
 		for (int xx = 0; xx < M_SIZE; xx++) {
-			tile[xx][yy].update();
+			tile[xx][yy]->update();
 
 			checkForOtherSelectedTiles({ xx, yy });
 
@@ -277,7 +284,7 @@ void CGrid::update() {
 void CGrid::draw() {
 	for (int yy = 0; yy < M_SIZE; yy++) {
 		for (int xx = 0; xx < M_SIZE; xx++) {
-			tile[xx][yy].draw();
+			tile[xx][yy]->draw();
 
 			terrain[xx][yy]->draw();
 		}
@@ -287,7 +294,7 @@ void CGrid::draw() {
 void CGrid::quit() {
 	for (int yy = 0; yy < M_SIZE; yy++) {
 		for (int xx = 0; xx < M_SIZE; xx++) {
-			tile[xx][yy].quit();
+			tile[xx][yy]->quit();
 			
 			terrain[xx][yy]->quit();
 		}
