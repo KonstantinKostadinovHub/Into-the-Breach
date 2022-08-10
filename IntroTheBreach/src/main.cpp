@@ -19,8 +19,7 @@ int main(int* argc, char* argv[])
 	unsigned long long last_update = 0;
 	unsigned long long last_draw = 0;
 
-	while (world.m_run)
-	{
+	while (world.m_run)	{
 		if (SDL_GetTicks() >= last_update + 1000 / tps) {
 			world.update();
 			last_update = SDL_GetTicks();

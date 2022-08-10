@@ -3,7 +3,10 @@
 #include <SDL.h>
 
 #include "InputManger.h"
+#include "Projectile.h"
 #include "CGame.h"
+#include "Healthbar.h"
+#include "Health.h"
 
 class CWorld {
 public:

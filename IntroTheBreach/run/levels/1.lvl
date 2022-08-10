@@ -1,0 +1,10 @@
+grass
+
+T T T T 0 W W M
+T T 0 0 W W M 0
+0 0 0 W W W M 0
+0 0 0 0 0 0 0 0
+0 M W W W 0 0 0
+0 M 0 W 0 0 0 0
+M W W W 0 0 T T
+W W 0 0 T T T T

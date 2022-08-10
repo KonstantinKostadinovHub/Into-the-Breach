@@ -6,6 +6,7 @@
 using std::string;
 
 #include "CGrid.h"
+#include "CMap.h"
 
 class CGame {
 public:
@@ -22,7 +23,10 @@ public:
 	SDL_Rect m_bgrRect;
 
 	CGrid m_grid;
+	CMap m_currMap;
 
+	void loadMap(int lvl);
+	
 	void init(SDL_Renderer* renderer);
 	void update();
 	void draw();

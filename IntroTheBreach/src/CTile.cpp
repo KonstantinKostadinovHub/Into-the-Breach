@@ -9,7 +9,7 @@ CTile::CTile() {
 	m_mainRenderer = nullptr;
 
 	m_texture = nullptr;
-	m_shadow_texture = nullptr;
+	m_shadowTexture = nullptr;
 	m_powerhouse = nullptr;
 
 	m_button.m_rect = { 0, 0, 1, 1 };
@@ -21,18 +21,22 @@ CTile::CTile() {
 	hovered = false;
 	selected = false;
 
+	water = false;
+
 	z_add = 0;
+
+	m_terrain = nullptr;
 }
 
 CTile::~CTile() {
 
 }
 
-void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shadow_texture, int2 coord, int size) {
+void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shadow_texture, int2 coord, int size, bool is_water, CTerrain* terrain) {
 	m_mainRenderer = renderer;
 
 	m_texture = texture;
-	m_shadow_texture = shadow_texture;
+	m_shadowTexture = shadow_texture;
 
 	m_button.m_rect.w = size;
 	m_button.m_rect.h = size;
@@ -64,9 +68,33 @@ void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shad
 
 	m_isomRectLifted = m_isomRect;
 	m_isomRectLifted.y -= z_add;
+
+	water = is_water;
+
+	m_terrain = terrain;
+
+	m_powerhouse = nullptr;
+}
+
+/*
+* @return - can we put a powerhouse on this tile
+*/
+bool  CTile::addPowerhouse(Powerhouse* powerhouse)
+{
+	if (m_powerhouse != nullptr || m_terrain->getType() == "fluid" || m_terrain->getType() == "mountain" || m_terrain->getType() == "tree")
+	{
+		return false;
+	}
+
+	m_powerhouse = powerhouse;
+
+	return true;
 }
 
 void CTile::update() {
+	if (water) {
+		return;
+	}
 	int2 tmp = screenToGridCoords(InputManager::m_mouseCoord);
 
 	if (hovered) {
@@ -93,23 +121,28 @@ void CTile::update() {
 void CTile::draw() {
 	if (hovered || m_button.button_down || selected) {
 		SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRectLifted);
+
+		m_terrain->giveCentralPoint({ m_isomRectLifted.x + m_isomRectLifted.w / 2 , m_isomRectLifted.y + m_isomRectLifted.h / 2 });
+		if (m_powerhouse)
+		{
+			m_powerhouse->draw(m_mainRenderer, { m_isomRectLifted.x + m_isomRectLifted.w / 2 , m_isomRectLifted.y + m_isomRectLifted.h / 2 });
+		}
 	}
 	else {
 		SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRect);
+
+		m_terrain->giveCentralPoint({ m_isomRect.x + m_isomRect.w / 2 , m_isomRect.y + m_isomRect.h / 2 });
+		if (m_powerhouse)
+		{
+			m_powerhouse->draw(m_mainRenderer, { m_isomRect.x + m_isomRect.w / 2 , m_isomRect.y + m_isomRect.h / 2 });
+		}
 	}
 
 	if (selected) {
-		SDL_RenderCopy(m_mainRenderer, m_shadow_texture, NULL, &m_isomRectLifted);
+		SDL_RenderCopy(m_mainRenderer, m_shadowTexture, NULL, &m_isomRectLifted);
 	}
 }
 
 void CTile::quit() {
 
-}
-
-void CTile::addPowerhouse(SDL_Renderer* renderer, POWERHOUSE type, int team)
-{
-	m_powerhouse = new Powerhouse();
-
-	m_powerhouse->init(m_mainRenderer, type, team);
 }

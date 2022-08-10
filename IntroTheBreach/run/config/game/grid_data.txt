@@ -1,2 +1,3 @@
-m_tileTextureFile: game\\tile\\tile4.bmp
-m_shadowTextureFile: game\\tile\\shadow.bmp
+biomes: dark dirt dry grass sand snow
+m_tileTextureFile: game\terrain\ <biome_name>
+m_tileShadowTextureFile: game\tile\shadow.bmp

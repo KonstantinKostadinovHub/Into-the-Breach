@@ -1,3 +1,5 @@
+#include <array>
+
 #include "Engine.h"
 #include "Globals.h"
 
@@ -131,14 +133,24 @@ void giveTileSize(int tileSize, int isomTileW, int isomTileH, int gridSize) {
 int2 normalToIsom(int2 coord) {
     int2 isomCoord;
 
-    isomCoord.x = -1 * ISOM_TILE_W / 2 + (coord.x * ISOM_TILE_W / 2 / TILE_SIZE) - (coord.y * (ISOM_TILE_W / 2) / TILE_SIZE);
-    isomCoord.y = (coord.x * (ISOM_TILE_H / 4) / TILE_SIZE) + (coord.y * (ISOM_TILE_H / 4) / TILE_SIZE);
+    isomCoord.x = SCREEN_W / 2 +                           ((coord.x - coord.y) * (ISOM_TILE_W / 2) / TILE_SIZE);
+    isomCoord.y = (SCREEN_H - (8 * ISOM_TILE_H / 2)) / 2 + ((coord.x + coord.y) * (ISOM_TILE_H / 4) / TILE_SIZE);
 
     return isomCoord;
 }
 
 int2 gridToScreenCoords(int2 gridCoord) {
+    //Centers automaticly
     int2 screenCoord;
+
+    screenCoord.x = gridCoord.x - gridCoord.y + SCREEN_W / 2 - ISOM_TILE_W / 2;
+    screenCoord.y = (gridCoord.x + gridCoord.y) / 2 + (SCREEN_H - ISOM_TILE_H / 2 * (GRID_SIZE + 1)) / 2 + TILE_SIZE / 2;
+
+    return screenCoord;
+}
+
+float2 floatGridToScreenCoords(float2 gridCoord) {
+    float2 screenCoord;
 
     screenCoord.x = gridCoord.x - gridCoord.y + SCREEN_W / 2 - ISOM_TILE_W / 2;
     screenCoord.y = (gridCoord.x + gridCoord.y) / 2 + (SCREEN_H - ISOM_TILE_H / 2 * (GRID_SIZE + 1)) / 2;
@@ -151,7 +163,7 @@ int2 screenToGridCoords(int2 screenCoords) {
     int2 tmp;
 
     tmp.x = screenCoords.x - SCREEN_W / 2;// +ISOM_TILE_W / 2;
-    tmp.y = screenCoords.y -(SCREEN_H - ISOM_TILE_H / 2 * (GRID_SIZE + 1)) / 2;
+    tmp.y = screenCoords.y - (SCREEN_H - ISOM_TILE_H / 2 * (GRID_SIZE + 1)) / 2 - TILE_SIZE / 2;
 
     gridCoord.x = tmp.x / 2 + tmp.y;
     gridCoord.y = tmp.y * 2 - gridCoord.x;
@@ -188,4 +200,75 @@ bool collidingRectAndPoint(SDL_Rect rect, int2 point) {
     }
 
     return true;
+}
+
+SDL_Texture2::SDL_Texture2() {
+    texture = nullptr;
+    overlay = nullptr;
+}
+
+SDL_Texture2::SDL_Texture2(SDL_Texture* img, SDL_Texture* overlay_img) {
+    texture = img;
+    overlay = overlay_img;
+}
+
+SDL_Texture2::~SDL_Texture2() {
+
+}
+
+int getNumSize(int num)
+{
+    for (int i = 0; i > -1; i++) {
+        num /= 10;
+
+        if (num == 0) {
+            return i + 1;
+        }
+    }
+}
+
+string intToStr(int num) {
+    string ans = "";
+
+    int numSz = getNumSize(num);
+    char curr;
+
+    for (int i = 0; i < numSz; i++) {
+        curr = num % 10;
+        curr += '0';
+        ans = curr + ans;
+
+        num /= 10;
+    }
+
+    return ans;
+}
+
+string wstrToStr(const std::wstring& wstr)
+{
+    const int BUFF_SIZE = 7;
+
+    if (MB_CUR_MAX >= BUFF_SIZE) {
+        throw std::invalid_argument("BUFF_SIZE too small");
+    }
+    string result;
+
+    #pragma warning(suppress : 4996)
+    bool shifts = std::wctomb(nullptr, 0);  // reset the conversion state
+
+    for (const wchar_t wc : wstr)
+    {
+        std::array<char, BUFF_SIZE> buffer;
+
+        #pragma warning(suppress : 4996)
+        const int ret = std::wctomb(buffer.data(), wc);
+
+        if (ret < 0) {
+            throw std::invalid_argument("inconvertible wide characters in the current locale");
+        }
+        buffer[ret] = '\0';  // make 'buffer' contain a C-style string
+
+        result += std::string(buffer.data());
+    }
+    return result;
 }
