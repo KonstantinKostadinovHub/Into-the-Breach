@@ -151,6 +151,7 @@
     <ClCompile Include="src\Globals.cpp" />
     <ClCompile Include="src\InputManger.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Powerhouse.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CGame.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="include\CWorld.h" />
     <ClInclude Include="include\Engine.h" />
     <ClInclude Include="include\Globals.h" />
+    <ClInclude Include="include\Powerhouse.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\InputManger.h" />

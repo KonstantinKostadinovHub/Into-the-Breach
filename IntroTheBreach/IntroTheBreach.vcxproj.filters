@@ -34,6 +34,9 @@
     <ClCompile Include="src\CTile.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Powerhouse.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Globals.h">
@@ -55,6 +58,9 @@
       <Filter>include</Filter>
     </ClInclude>
     <ClInclude Include="include\CTile.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Powerhouse.h">
       <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>

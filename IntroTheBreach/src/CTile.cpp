@@ -10,6 +10,7 @@ CTile::CTile() {
 
 	m_texture = nullptr;
 	m_shadow_texture = nullptr;
+	m_powerhouse = nullptr;
 
 	m_button.m_rect = { 0, 0, 1, 1 };
 	m_rectLifted = { 0, 0, 1, 1 };
@@ -104,4 +105,11 @@ void CTile::draw() {
 
 void CTile::quit() {
 
+}
+
+void CTile::addPowerhouse(SDL_Renderer* renderer, POWERHOUSE type, int team)
+{
+	m_powerhouse = new Powerhouse();
+
+	m_powerhouse->init(m_mainRenderer, type, team);
 }
