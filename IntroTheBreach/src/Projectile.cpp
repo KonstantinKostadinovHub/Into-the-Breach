@@ -5,7 +5,7 @@ SDL_Texture* Projectile::m_PROJECTILE_TEXTURE = nullptr;
 Projectile::Projectile() {
 }
 
-Projectile::Projectile(int st_tileCol, int st_tileRow, int destinationTileCol, int destinationTileRow) {
+Projectile::Projectile(int st_tileCol, int st_tileRow, int destinationTileCol, int destinationTileRow, bool straight, bool piercing) {
 	m_rect.w = PROJECTILE_SIZE;
 	m_rect.h = PROJECTILE_SIZE;
 
@@ -19,6 +19,9 @@ Projectile::Projectile(int st_tileCol, int st_tileRow, int destinationTileCol, i
 
 	m_vel.x = (destinationTileCol * TILE_SIZE - st_tileCol * TILE_SIZE + 0.f) / ticksLifespan;
 	m_vel.y = (destinationTileRow * TILE_SIZE - st_tileRow * TILE_SIZE + 0.f) / ticksLifespan;
+
+	m_straight = straight;
+	m_piercing = piercing;
 
 	m_delete = false;
 }

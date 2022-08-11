@@ -1,5 +1,7 @@
 #include "Entity.h"
 
+vector<EntityAssets> Entity::m_ENTITIES = vector<EntityAssets>();
+
 Entity::Entity() {
 }
 
@@ -37,11 +39,52 @@ void Entity::update() {
 		if (!m_projectile[i].m_delete) {
 			m_projectile[i].update();
 		}
-		//if (m_projectile[i].m_delete) {
-		//	m_projectile.erase(m_projectile.begin() + i);
-		//	i--;
-		//}
+		if (m_projectile[i].m_delete) {
+			m_projectile.erase(m_projectile.begin() + i);
+			i--;
+		}
 	}
+}
+
+void Entity::readEntityAssets() {
+	ifstream read;
+	read.open("config\\entity\\entity.txt");
+	string temp;
+	getline(read, temp, ';');
+
+	int i = 0;
+	while (!read.eof()) {
+		m_ENTITIES.push_back(EntityAssets());
+
+		int jumpingMelee, straightProj, piercingProj;
+		read >> m_ENTITIES[i].m_name >> m_ENTITIES[i].m_health >> m_ENTITIES[i].m_moveRadius 
+			 >> jumpingMelee >> straightProj >> piercingProj >> m_ENTITIES[i].m_doKnockback;
+
+		if (jumpingMelee == -1) {
+			m_ENTITIES[i].m_ranged = true;
+			m_ENTITIES[i].m_jumpingMelee = false;
+		}
+		else {
+			m_ENTITIES[i].m_ranged = false;
+			m_ENTITIES[i].m_jumpingMelee = jumpingMelee;
+		}
+
+		m_ENTITIES[i].m_straightProjectile = min(straightProj, 0);
+		m_ENTITIES[i].m_piercingProjectile = min(piercingProj, 0);
+
+		//Read possible moves
+		int a;
+		string temp;
+		read >> temp;
+		while (temp != ";") {
+			read >> a;
+			m_ENTITIES[i].m_movableTiles.push_back(pair<int, int>(stoi(temp), a));
+			read >> temp;
+		}
+
+		i++;
+	}
+
 }
 
 void Entity::moveToTile(int tileCol, int tileRow) {

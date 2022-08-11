@@ -1,9 +1,11 @@
 #pragma once
 
+#include <fstream>
 #include <vector>
 #include "SDL.h"
 #include "Globals.h"
 #include "Engine.h"
+#include "EntityAssets.h"
 #include "Projectile.h"
 #include "Healthbar.h"
 using std::pair;
@@ -13,6 +15,8 @@ public:
 	Entity();
 	Entity(int st_tileCol, int st_tileRow, int health, bool enemy);
 	~Entity();
+
+	static std::vector<EntityAssets> m_ENTITIES;
 
 	SDL_Texture* m_texture;
 	SDL_Rect m_rect; //Isometric coords
@@ -35,6 +39,8 @@ public:
 	void draw(SDL_Renderer* renderer);
 	void update();
 	
+	static void readEntityAssets();
+
 	void moveToTile(int tileCol, int tileRow);
 	void continueMoving();
 	void attack(int attackedTileCol, int attackedTileRow);
