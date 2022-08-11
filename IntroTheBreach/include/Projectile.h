@@ -7,7 +7,7 @@
 class Projectile {
 public:
 	Projectile();
-	Projectile(int st_tileCol, int st_tileRow, int destinationTileCol, int destinationTileRow);
+	Projectile(int st_tileCol, int st_tileRow, int destinationTileCol, int destinationTileRow, bool straight, bool piercing);
 	~Projectile();
 
 	static SDL_Texture* m_PROJECTILE_TEXTURE;
@@ -17,6 +17,9 @@ public:
 	int2 m_realCoords;
 	int2 m_destinationCoords;
 	float m_z;
+
+	bool m_straight;
+	bool m_piercing;
 
 	bool m_delete;
 

@@ -1,9 +1,11 @@
 #include "Entity.h"
 
+vector<EntityAssets> Entity::m_ENTITIES = vector<EntityAssets>();
+
 Entity::Entity() {
 }
 
-Entity::Entity(int st_tileCol, int st_tileRow, int health, bool enemy) {
+Entity::Entity(int st_tileCol, int st_tileRow, int health, int identity, bool enemy) {
 	m_rect.w = 60;
 	m_rect.h = 78;
 	m_enemy = enemy;
@@ -12,6 +14,7 @@ Entity::Entity(int st_tileCol, int st_tileRow, int health, bool enemy) {
 	
 	m_healthbar = Healthbar(health, int2(m_rect.x + m_rect.w / 2, m_rect.y - HEALTHBAR_OFFSET_FROM_ENTITY), m_enemy);
 
+	m_type = identity;
 	m_dead = false;
 	m_moving = false;
 	m_destinationTile.first = -1;
@@ -37,11 +40,52 @@ void Entity::update() {
 		if (!m_projectile[i].m_delete) {
 			m_projectile[i].update();
 		}
-		//if (m_projectile[i].m_delete) {
-		//	m_projectile.erase(m_projectile.begin() + i);
-		//	i--;
-		//}
+		if (m_projectile[i].m_delete) {
+			m_projectile.erase(m_projectile.begin() + i);
+			i--;
+		}
 	}
+}
+
+void Entity::readEntityAssets() {
+	ifstream read;
+	read.open("config\\entity\\entity.txt");
+	string temp;
+	getline(read, temp, ';');
+
+	int i = 0;
+	while (!read.eof()) {
+		m_ENTITIES.push_back(EntityAssets());
+
+		int jumpingMelee, straightProj, piercingProj;
+		read >> m_ENTITIES[i].m_name >> m_ENTITIES[i].m_health >> m_ENTITIES[i].m_moveRadius 
+			 >> jumpingMelee >> straightProj >> piercingProj >> m_ENTITIES[i].m_doKnockback;
+
+		if (jumpingMelee == -1) {
+			m_ENTITIES[i].m_ranged = true;
+			m_ENTITIES[i].m_jumpingMelee = false;
+		}
+		else {
+			m_ENTITIES[i].m_ranged = false;
+			m_ENTITIES[i].m_jumpingMelee = jumpingMelee;
+		}
+
+		m_ENTITIES[i].m_straightProjectile = min(straightProj, 0);
+		m_ENTITIES[i].m_piercingProjectile = min(piercingProj, 0);
+
+		//Read possible moves
+		int a;
+		string temp;
+		read >> temp;
+		while (temp != ";") {
+			read >> a;
+			m_ENTITIES[i].m_movableTiles.push_back(pair<int, int>(stoi(temp), a));
+			read >> temp;
+		}
+
+		i++;
+	}
+
 }
 
 void Entity::moveToTile(int tileCol, int tileRow) {
@@ -84,7 +128,8 @@ void Entity::continueMoving() {
 }
 
 void Entity::attack(int attackedTileCol, int attackedTileRow) {
-	m_projectile.push_back(Projectile(m_curTile.first, m_curTile.second, attackedTileCol, attackedTileRow));
+	m_projectile.push_back(Projectile(m_curTile.first, m_curTile.second, attackedTileCol, attackedTileRow,
+		m_ENTITIES[m_type].m_straightProjectile, m_ENTITIES[m_type].m_piercingProjectile));
 }
 
 void Entity::decreaseHealth(int decrease) {

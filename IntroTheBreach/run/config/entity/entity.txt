@@ -1,0 +1,6 @@
+entity name, health, move radius, jumping melee attack, straight projectile, piercing projectile, do knockback,  attackable tiles
+(-1 = doesn't use this type of attack for everything except attackable tiles);
+
+gunner 2 3 -1 1 1 1
+0 -5 0 -4 0 -3 0 -2 0 -1 0 1 0 2 0 3 0 4 0 5
+-5 0 -4 0 -3 0 -2 0 -1 0 1 0 2 0 3 0 4 0 5 0;
