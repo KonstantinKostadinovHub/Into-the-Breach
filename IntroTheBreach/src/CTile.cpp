@@ -50,16 +50,16 @@ void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shad
 	int2 tmp;
 	tmp = gridToScreenCoords({ m_button.m_rect.x, m_button.m_rect.y });
 
-	z_add = size / 5;
-
 	m_isomRect.x = tmp.x - m_isomRect.w / 2;
 	m_isomRect.y = tmp.y;
+
+	z_add = size / 5;
 
 	int m_rectLift = 0;// z_add * 1.414;
 
 	m_rectLifted = m_button.m_rect;
-	m_rectLifted.x -= m_rectLift;
-	m_rectLifted.y -= m_rectLift;
+	//m_rectLifted.x -= m_rectLift;
+	//m_rectLifted.y -= m_rectLift;
 
 	m_isomRectLifted = m_isomRect;
 	m_isomRectLifted.y -= z_add;
@@ -86,22 +86,35 @@ bool CTile::addPowerhouse(Powerhouse* powerhouse)
 	return true;
 }
 
+void CTile::setGridCoords(int2 coord) {
+	m_button.m_rect.x = coord.x;
+	m_button.m_rect.y = coord.y;
+
+	int2 tmpScreenCoord = gridToScreenCoords({ m_button.m_rect.x, m_button.m_rect.y });
+
+	m_isomRect.x = tmpScreenCoord.x - m_isomRect.w / 2;
+	m_isomRect.y = tmpScreenCoord.y;
+
+	m_isomRectLifted = m_isomRect;
+	m_isomRectLifted.y -= z_add;
+}
+
 void CTile::update() {
 	if (water) {
 		return;
 	}
-	int2 tmp = screenToGridCoords(InputManager::m_mouseCoord);
+	int2 tmpGridCoord = screenToGridCoords(InputManager::m_mouseCoord);
 
 	if (hovered) {
-		if (!collidingRectAndPoint(m_rectLifted, tmp)) {
+		if (!collidingRectAndPoint(m_button.m_rect, tmpGridCoord)) {
 			hovered = false;
 		}
 	}
-	else if (collidingRectAndPoint(m_button.m_rect, tmp)) {
+	else if (collidingRectAndPoint(m_button.m_rect, tmpGridCoord)) {
 		hovered = true;
 	}
 
-	bool down = m_button.pressed(tmp);
+	bool down = m_button.pressed(tmpGridCoord);
 
 	if (down && !selected) {
 		selected = true;

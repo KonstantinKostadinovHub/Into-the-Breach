@@ -9,7 +9,7 @@ public:
 	CMap();
 	~CMap();
 
-	static const int M_SIZE = 8;
+	static const int M_SIZE = 20;
 
 	static const char TILE = '0';
 	static const char FLUID = 'W';

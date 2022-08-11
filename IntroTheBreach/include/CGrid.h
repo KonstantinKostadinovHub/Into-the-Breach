@@ -17,25 +17,28 @@ public:
 	CGrid();
 	~CGrid();
 
-	bool dragged;
-
-	int2 m_start_coords;
+	int2 m_startCoords;
 	int2 m_distanceFromMouseToStart;
+
+	int m_lengthToEdge;
+
+	SDL_Rect m_rect;
+	int2 distToScreen;
 
 	static const int M_SIZE = CMap::M_SIZE;
 	static const int TERRAIN_OBJECTS = 4;
 
 	CMap* m_currMap;
 
-	CTile* tile[M_SIZE][M_SIZE];
-	CTerrain* terrain[M_SIZE][M_SIZE]; // each tile recieves a pointer to its respective terrain; it takes care for the draw and update
+	CTile* m_tile[M_SIZE][M_SIZE];
+	CTerrain* m_terrain[M_SIZE][M_SIZE]; // each tile recieves a pointer to its respective terrain; it takes care for the draw and update
 
 	int m_tileSize;
 
-	int2 lastSelectedTile;
-	bool selectedTile;
+	int2 m_lastSelectedTile;
+	bool m_selectedTile;
 
-	vector <string> biomes; // all file names in directory "img\\game\\terrain\\"
+	vector <string> m_biomes; // all file names in directory "img\\game\\terrain\\"
 
 	SDL_Renderer* m_mainRenderer;
 
@@ -49,7 +52,7 @@ public:
 
 	SDL_Texture* m_tileShadowTexture;	
 
-	void move();
+	void checkForMovement();
 
 	void getBiomes();
 	void getTextures(string biome);
