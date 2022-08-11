@@ -65,16 +65,15 @@ void CGrid::getBiomes() {
 void CGrid::init(SDL_Renderer* renderer) {
 	m_mainRenderer = renderer;
 
-	string label;
-
 	getBiomes();
+
+	string label;
 
 	ifstream fin;
 
 	fin.open("config\\game\\grid_data.txt");
 
 	fin >> label >> m_tileTextureFiles >> label;
-
 	fin >> label >> m_tileShadowTextureFile;
 	
 	fin.close();
@@ -148,6 +147,14 @@ void CGrid::makeTerrainTree(int2 slot) {
 	terrain[slot.x][slot.y] = tmp_tree;
 }
 
+void CGrid::makePowerhouse(int2 slot, POWERHOUSE type) {
+	Powerhouse* ph = new Powerhouse();
+
+	ph->init(m_mainRenderer, type, 1);
+
+	tile[slot.x][slot.y]->addPowerhouse(ph);
+}
+
 void CGrid::loadPowerhouses(int lvl)
 {
 	int s, m, l;
@@ -174,11 +181,11 @@ void CGrid::makePowerhouseBySize(POWERHOUSE type, int quantity)
 		int x = rand() % CMap::M_SIZE;
 		int y = rand() % CMap::M_SIZE;
 
-		cout << quantity << " " << x << " " << y << '\n';
-
 		Powerhouse* ph = new Powerhouse();
 
-		ph->init(m_mainRenderer, POWERHOUSE::SMALL, 1);
+		ph->init(m_mainRenderer, type, 1);
+
+		cout << quantity << " " << x << " " << y << " " << ph << '\n';
 
 		if (tile[x][y]->addPowerhouse(ph))
 		{
@@ -187,23 +194,13 @@ void CGrid::makePowerhouseBySize(POWERHOUSE type, int quantity)
 	}
 }
 
-void CGrid::start(CMap* map) {
-	m_currMap = map;
+void CGrid::getTextures(string biome) {
+	int terrainObjectsCnt[4];
 
 	ifstream fin;
 
-	string currBiome;
+	fin.open("config\\game\\terrain\\" + biome + "\\count.txt");
 
-	if (m_currMap->m_biome == "0") {
-		int index = rand() % (int)biomes.size();
-		currBiome = biomes[index];
-	}
-	else {
-		currBiome = m_currMap->m_biome;
-	}
-
-	fin.open("config\\game\\terrain\\" + currBiome + "\\count.txt");
-	
 	for (int i = 0; i < TERRAIN_OBJECTS; i++) {
 		fin >> terrainObjectsCnt[i];
 	}
@@ -212,39 +209,62 @@ void CGrid::start(CMap* map) {
 
 
 	for (int i = 0; i < terrainObjectsCnt[0]; i++) {
-		m_tileTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + currBiome + "\\tile" + intToStr(i + 1) + ".bmp"));
+		m_tileTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + biome + "\\tile" + intToStr(i + 1) + ".bmp"));
 	}
 	for (int i = 0; i < terrainObjectsCnt[1]; i++) {
-		m_tileFluidTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + currBiome + "\\fluid" + intToStr(i + 1) + ".bmp"));
+		m_tileFluidTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + biome + "\\fluid" + intToStr(i + 1) + ".bmp"));
 	}
 	for (int i = 0; i < terrainObjectsCnt[2]; i++) {
-		m_mountainTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + currBiome + "\\mountain" + intToStr(i + 1) + ".bmp"));
+		m_mountainTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + biome + "\\mountain" + intToStr(i + 1) + ".bmp"));
 	}
 	for (int i = 0; i < terrainObjectsCnt[3]; i++) {
-		m_treeTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + currBiome + "\\tree" + intToStr(i + 1) + ".bmp"));
+		m_treeTexture.push_back(loadTexture(m_mainRenderer, m_tileTextureFiles + biome + "\\tree" + intToStr(i + 1) + ".bmp"));
 	}
+}
 
+void CGrid::loadTiles() {
 	for (int yy = 0; yy < M_SIZE; yy++) {
 		for (int xx = 0; xx < M_SIZE; xx++) {
-			if (m_currMap->m_map[xx][yy] == '0') {
+			if (m_currMap->m_map[xx][yy] == CMap::TILE) {
 				makeTerrainNone({ xx, yy });
 
 				makeTile({ xx, yy });
 			}
-			else if (m_currMap->m_map[xx][yy] == 'W') {
+			else if (m_currMap->m_map[xx][yy] == CMap::FLUID) {
 				makeTerrainFluid({ xx, yy });
 
 				makeTileFluid({ xx, yy });
 			}
-			else if (m_currMap->m_map[xx][yy] == 'M') {
+			else if (m_currMap->m_map[xx][yy] == CMap::MOUNTAIN) {
 				makeTerrainMountain({ xx, yy });
-				
+
 				makeTile({ xx, yy });
 			}
-			else if (m_currMap->m_map[xx][yy] == 'T') {
+			else if (m_currMap->m_map[xx][yy] == CMap::TREE) {
 				makeTerrainTree({ xx, yy });
 
 				makeTile({ xx, yy });
+			}
+			else if (m_currMap->m_map[xx][yy] == CMap::PHOUSE1) {
+				makeTerrainNone({ xx, yy });
+
+				makeTile({ xx, yy });
+
+				makePowerhouse({ xx, yy }, POWERHOUSE::SMALL);
+			}
+			else if (m_currMap->m_map[xx][yy] == CMap::PHOUSE2) {
+				makeTerrainNone({ xx, yy });
+
+				makeTile({ xx, yy });
+
+				makePowerhouse({ xx, yy }, POWERHOUSE::MID);
+			}
+			else if (m_currMap->m_map[xx][yy] == CMap::PHOUSE3) {
+				makeTerrainNone({ xx, yy });
+
+				makeTile({ xx, yy });
+
+				makePowerhouse({ xx, yy }, POWERHOUSE::LARGE);
 			}
 			else {
 				int indexTerrainType = rand() % 11;
@@ -270,15 +290,29 @@ void CGrid::start(CMap* map) {
 				}
 			}
 
-			//terrain[xx][yy]->giveCentralPoint({ tile[xx][yy].m_isomRect.x + tile[xx][yy].m_isomRect.w / 2,
-			//		tile[xx][yy].m_isomRect.y + tile[xx][yy].m_isomRect.h / 2 });
-
 			cout << terrain[xx][yy]->getType() << "   ";
 		}
 		cout << '\n';
 	}
+}
 
-	loadPowerhouses(0);
+void CGrid::start(CMap* map) {
+	m_currMap = map;
+
+	string currBiome;
+
+	if (m_currMap->m_biome == "0") {
+		int index = rand() % (int)biomes.size();
+		currBiome = biomes[index];
+	}
+	else {
+		currBiome = m_currMap->m_biome;
+	}
+
+	getTextures(currBiome);
+	loadTiles();
+
+	//loadPowerhouses(0);
 }
 
 
@@ -315,9 +349,7 @@ void CGrid::update() {
 
 			checkForOtherSelectedTiles({ xx, yy });
 
-			//std::cout << "asd\n";
-			terrain[xx][yy]->update();
-			//std::cout << "aaaaaaaaaaasssdddddddddd\n";
+			//terrain[xx][yy]->update();
 		}
 	}
 }
@@ -327,7 +359,7 @@ void CGrid::draw() {
 		for (int xx = 0; xx < M_SIZE; xx++) {
 			tile[xx][yy]->draw();
 
-			terrain[xx][yy]->draw();
+			//terrain[xx][yy]->draw();
 		}
 	}
 }
@@ -336,8 +368,10 @@ void CGrid::quit() {
 	for (int yy = 0; yy < M_SIZE; yy++) {
 		for (int xx = 0; xx < M_SIZE; xx++) {
 			tile[xx][yy]->quit();
+			delete tile[xx][yy];
 			
 			terrain[xx][yy]->quit();
+			delete terrain[xx][yy];
 		}
 	}
 

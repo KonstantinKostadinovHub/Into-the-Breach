@@ -16,7 +16,12 @@ public:
 	static const char MOUNTAIN = 'M';
 	static const char TREE = 'T';
 	static const char RANDOM = 'X';
+	static const char PHOUSE1 = '1';
+	static const char PHOUSE2 = '2';
+	static const char PHOUSE3 = '3';
 	static const char UNDEFINED = '~';
+
+	static const int PHOUSE_CNT = 3;
 
 	string m_biome;
 	char m_map[M_SIZE][M_SIZE];

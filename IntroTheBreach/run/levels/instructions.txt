@@ -6,4 +6,8 @@ The following grid represents the map. Here are the characters' meanings:
 W - water
 M - mountain
 T - tree
-X - random
+1 - powerhouse 1
+2 - powerhouse 2
+3 - powerhouse 3
+X - random terrain
+If the first character is '~', the whole map is generated randomly.
