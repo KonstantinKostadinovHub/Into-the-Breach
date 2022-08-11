@@ -13,7 +13,7 @@ using std::pair;
 class Entity {
 public:
 	Entity();
-	Entity(int st_tileCol, int st_tileRow, int health, bool enemy);
+	Entity(int st_tileCol, int st_tileRow, int health, int identity,  bool enemy);
 	~Entity();
 
 	static std::vector<EntityAssets> m_ENTITIES;

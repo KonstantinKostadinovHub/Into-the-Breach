@@ -5,7 +5,7 @@ vector<EntityAssets> Entity::m_ENTITIES = vector<EntityAssets>();
 Entity::Entity() {
 }
 
-Entity::Entity(int st_tileCol, int st_tileRow, int health, bool enemy) {
+Entity::Entity(int st_tileCol, int st_tileRow, int health, int identity, bool enemy) {
 	m_rect.w = 60;
 	m_rect.h = 78;
 	m_enemy = enemy;
@@ -14,6 +14,7 @@ Entity::Entity(int st_tileCol, int st_tileRow, int health, bool enemy) {
 	
 	m_healthbar = Healthbar(health, int2(m_rect.x + m_rect.w / 2, m_rect.y - HEALTHBAR_OFFSET_FROM_ENTITY), m_enemy);
 
+	m_type = identity;
 	m_dead = false;
 	m_moving = false;
 	m_destinationTile.first = -1;
@@ -127,7 +128,8 @@ void Entity::continueMoving() {
 }
 
 void Entity::attack(int attackedTileCol, int attackedTileRow) {
-	m_projectile.push_back(Projectile(m_curTile.first, m_curTile.second, attackedTileCol, attackedTileRow));
+	m_projectile.push_back(Projectile(m_curTile.first, m_curTile.second, attackedTileCol, attackedTileRow,
+		m_ENTITIES[m_type].m_straightProjectile, m_ENTITIES[m_type].m_piercingProjectile));
 }
 
 void Entity::decreaseHealth(int decrease) {
