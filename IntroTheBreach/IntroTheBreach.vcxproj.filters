@@ -1,27 +1,29 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="include">
-      <UniqueIdentifier>{9f4c89c4-49c5-451c-b19e-2d37cb79ce1e}</UniqueIdentifier>
+      <UniqueIdentifier>{954f5146-05ae-4cb8-bc54-da9f61727b3a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\Entity">
-      <UniqueIdentifier>{10a6bb46-a4ee-46a3-a66f-d81c76063082}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src">
-      <UniqueIdentifier>{3c1cc19e-c535-487b-bc27-e25a6afe9b27}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Entity">
-      <UniqueIdentifier>{8f200f5a-fb06-4767-9d3c-4fd208888aa3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\General">
-      <UniqueIdentifier>{8b3341f3-b8ad-4a4c-a617-837fbe651b91}</UniqueIdentifier>
+    <Filter Include="include\Terrain">
+      <UniqueIdentifier>{ddf0eefa-0215-40e5-be3e-25da1a38279b}</UniqueIdentifier>
     </Filter>
     <Filter Include="include\General">
-      <UniqueIdentifier>{02b9c6c3-f69e-4752-b562-1d088c187115}</UniqueIdentifier>
+      <UniqueIdentifier>{d343be1a-df11-4804-9529-9b3b7eb69358}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="include\Entity">
+      <UniqueIdentifier>{c8320b14-7d7d-4b2f-9f13-3b78105e6782}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{07395f2d-3414-412c-b757-09822df4418b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Terrain">
+      <UniqueIdentifier>{0d52a464-af50-43d7-8a8d-f06fe9660bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\General">
+      <UniqueIdentifier>{b1dd14ab-dea6-4d62-ac10-df48bae0c99a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Entity">
+      <UniqueIdentifier>{f0f5dec5-2456-44c1-83f1-d4aab66eb921}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Terrain">
       <UniqueIdentifier>{079e17ac-d17b-4408-9766-b1dab27f2ffd}</UniqueIdentifier>
@@ -37,22 +39,31 @@
     <ClCompile Include="src\CTile.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity.cpp">
-      <Filter>src\Entity</Filter>
+    <ClCompile Include="src\CTerrain.cpp">
+      <Filter>src\Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="src\Health.cpp">
-      <Filter>src\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Healthbar.cpp">
+    <ClCompile Include="src\CTree.cpp">
       <Filter>src\Entity</Filter>
     </ClCompile>
     <ClCompile Include="src\Projectile.cpp">
       <Filter>src\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="src\Healthbar.cpp">
+      <Filter>src\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Health.cpp">
+      <Filter>src\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entity.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
     <ClCompile Include="src\CWorld.cpp">
       <Filter>src\General</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputManger.cpp">
       <Filter>src\General</Filter>
     </ClCompile>
     <ClCompile Include="src\Globals.cpp">
@@ -61,11 +72,20 @@
     <ClCompile Include="src\main.cpp">
       <Filter>src\General</Filter>
     </ClCompile>
-    <ClCompile Include="src\InputManger.cpp">
-      <Filter>src\General</Filter>
+    <ClCompile Include="src\Powerhouse.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CTile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CMap.cpp">
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\CGame.cpp">
-      <Filter>src\General</Filter>
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CGrid.cpp">
+      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\EntityAssets.cpp">
       <Filter>src\Entity</Filter>

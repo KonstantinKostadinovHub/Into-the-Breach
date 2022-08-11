@@ -180,7 +180,7 @@ void CGrid::makePowerhouseBySize(POWERHOUSE type, int quantity)
 
 		ph->init(m_mainRenderer, POWERHOUSE::SMALL, 1);
 
-		if (tile[x][y]->addPowerhouse(ph))
+		if (tile[x][y].addPowerhouse(ph))
 		{
 			quantity--;
 		}
