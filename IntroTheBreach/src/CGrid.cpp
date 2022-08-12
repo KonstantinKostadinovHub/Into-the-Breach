@@ -187,6 +187,11 @@ void CGrid::makePowerhouseBySize(POWERHOUSE type, int quantity)
 		{
 			quantity--;
 		}
+		else
+		{
+			ph->destroy();
+			delete ph;
+		}
 	}
 }
 
