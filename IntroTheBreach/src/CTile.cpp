@@ -142,6 +142,9 @@ void CTile::draw() {
 		}
 
 		m_terrain->giveCentralPoint({ m_isomRectLifted.x + m_isomRectLifted.w / 2 , m_isomRectLifted.y + m_isomRectLifted.h / 2 });
+		if (m_entity != nullptr) {
+			m_entity->setBottomCenterCoords({ m_isomRectLifted.x + m_isomRectLifted.w / 2 , m_isomRectLifted.y + m_isomRectLifted.h / 2 });
+		}
 
 		if (m_powerhouse)
 		{
@@ -152,6 +155,9 @@ void CTile::draw() {
 		SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRect);
 
 		m_terrain->giveCentralPoint({ m_isomRect.x + m_isomRect.w / 2 , m_isomRect.y + m_isomRect.h / 2 });
+		if (m_entity != nullptr) {
+			m_entity->setBottomCenterCoords({ m_isomRect.x + m_isomRect.w / 2 , m_isomRect.y + m_isomRect.h / 2 });
+		}
 		if (m_powerhouse)
 		{
 			m_powerhouse->draw(m_mainRenderer, { m_isomRect.x + m_isomRect.w / 2 , m_isomRect.y + m_isomRect.h / 2 });

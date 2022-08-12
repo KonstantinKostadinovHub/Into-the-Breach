@@ -161,10 +161,12 @@ void Entity::setCoordsOnTile(int tileCol, int tileRow) {
 void Entity::setCenterCoords(int2 centerCoords) {
 	m_rect.x = centerCoords.x - m_rect.w / 2;
 	m_rect.y = centerCoords.y - m_rect.h / 2;
+	m_healthbar.setCoords(int2(m_rect.x + m_rect.w / 2, m_rect.y - HEALTHBAR_OFFSET_FROM_ENTITY));
 }
 
 void Entity::setBottomCenterCoords(int2 bottomCenterCoords) {
 	//Bottom of the rect is on the bottom of the tile
 	m_rect.x = bottomCenterCoords.x - m_rect.w / 2;
 	m_rect.y = bottomCenterCoords.y - m_rect.h - 5;
+	m_healthbar.setCoords(int2(m_rect.x + m_rect.w / 2, m_rect.y - HEALTHBAR_OFFSET_FROM_ENTITY));
 }

@@ -125,7 +125,7 @@ void CGrid::makeTile(int2 slot) {
 	int indexTile = rand() % (int)m_tileTexture.size();
 
 	m_tile[slot.x][slot.y]->init(m_mainRenderer, m_tileTexture[indexTile], m_tileShadowTexture, 
-		{ slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, false, m_terrain[slot.x][slot.y], nullptr);
+		{ slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, false, m_terrain[slot.x][slot.y], m_entity[slot.x][slot.y]);
 }
 
 void CGrid::makeTileFluid(int2 slot) {
