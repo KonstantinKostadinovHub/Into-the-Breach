@@ -51,16 +51,16 @@ void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shad
 	int2 tmp;
 	tmp = gridToScreenCoords({ m_button.m_rect.x, m_button.m_rect.y });
 
-	z_add = size / 5;
-
 	m_isomRect.x = tmp.x - m_isomRect.w / 2;
 	m_isomRect.y = tmp.y;
+
+	z_add = size / 5;
 
 	int m_rectLift = 0;// z_add * 1.414;
 
 	m_rectLifted = m_button.m_rect;
-	m_rectLifted.x -= m_rectLift;
-	m_rectLifted.y -= m_rectLift;
+	//m_rectLifted.x -= m_rectLift;
+	//m_rectLifted.y -= m_rectLift;
 
 	m_isomRectLifted = m_isomRect;
 	m_isomRectLifted.y -= z_add;
@@ -76,7 +76,7 @@ void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shad
 /*
 * @return - can we put a powerhouse on this tile
 */
-bool  CTile::addPowerhouse(Powerhouse* powerhouse)
+bool CTile::addPowerhouse(Powerhouse* powerhouse)
 {
 	if (m_powerhouse != nullptr || m_terrain->getType() == "fluid" || m_terrain->getType() == "mountain" || m_terrain->getType() == "tree")
 	{
@@ -88,22 +88,35 @@ bool  CTile::addPowerhouse(Powerhouse* powerhouse)
 	return true;
 }
 
+void CTile::setGridCoords(int2 coord) {
+	m_button.m_rect.x = coord.x;
+	m_button.m_rect.y = coord.y;
+
+	int2 tmpScreenCoord = gridToScreenCoords({ m_button.m_rect.x, m_button.m_rect.y });
+
+	m_isomRect.x = tmpScreenCoord.x - m_isomRect.w / 2;
+	m_isomRect.y = tmpScreenCoord.y;
+
+	m_isomRectLifted = m_isomRect;
+	m_isomRectLifted.y -= z_add;
+}
+
 void CTile::update() {
 	if (water) {
 		return;
 	}
-	int2 tmp = screenToGridCoords(InputManager::m_mouseCoord);
+	int2 tmpGridCoord = screenToGridCoords(InputManager::m_mouseCoord);
 
 	if (hovered) {
-		if (!collidingRectAndPoint(m_rectLifted, tmp)) {
+		if (!collidingRectAndPoint(m_button.m_rect, tmpGridCoord)) {
 			hovered = false;
 		}
 	}
-	else if (collidingRectAndPoint(m_button.m_rect, tmp)) {
+	else if (collidingRectAndPoint(m_button.m_rect, tmpGridCoord)) {
 		hovered = true;
 	}
 
-	bool down = m_button.pressed(tmp);
+	bool down = m_button.pressed(tmpGridCoord);
 
 	if (down && !selected) {
 		selected = true;
@@ -116,13 +129,20 @@ void CTile::update() {
 	if (m_entity != nullptr) {
 		m_entity->update();
 	}
+
+	m_terrain->update();
 }
 
 void CTile::draw() {
 	if (hovered || m_button.button_down || selected) {
 		SDL_RenderCopy(m_mainRenderer, m_texture, NULL, &m_isomRectLifted);
 
+		if (selected) {
+			SDL_RenderCopy(m_mainRenderer, m_shadowTexture, NULL, &m_isomRectLifted);
+		}
+
 		m_terrain->giveCentralPoint({ m_isomRectLifted.x + m_isomRectLifted.w / 2 , m_isomRectLifted.y + m_isomRectLifted.h / 2 });
+
 		if (m_powerhouse)
 		{
 			m_powerhouse->draw(m_mainRenderer, { m_isomRectLifted.x + m_isomRectLifted.w / 2 , m_isomRectLifted.y + m_isomRectLifted.h / 2 });
@@ -138,12 +158,10 @@ void CTile::draw() {
 		}
 	}
 
-	if (selected) {
-		SDL_RenderCopy(m_mainRenderer, m_shadowTexture, NULL, &m_isomRectLifted);
-	}
 	if (m_entity != nullptr) {
 		m_entity->draw(m_mainRenderer);
 	}
+	m_terrain->draw();
 }
 
 void CTile::quit() {

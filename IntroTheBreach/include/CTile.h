@@ -43,6 +43,8 @@ public:
 
 	bool addPowerhouse(Powerhouse* powerhouse);
 
+	void setGridCoords(int2 coord);
+
 	void update();
 	void draw();
 	void quit();

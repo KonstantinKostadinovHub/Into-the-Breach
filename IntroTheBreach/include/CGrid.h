@@ -17,25 +17,42 @@ public:
 	CGrid();
 	~CGrid();
 
+	int2 m_startCoords;
+	int2 m_distanceFromMouseToStart;
+
+	int m_lengthToEdge;
+
+	SDL_Rect m_rect;
+	int2 distToScreen;
+
 	static const int M_SIZE = CMap::M_SIZE;
 	static const int TERRAIN_OBJECTS = 4;
 
-	SDL_Renderer* m_mainRenderer;
+	CMap* m_currMap;
 
-	vector <string> biomes; // all file names in directory "img\\game\\terrain\\"
+	CTile* m_tile[M_SIZE][M_SIZE];
+	CTerrain* m_terrain[M_SIZE][M_SIZE]; // each tile recieves a pointer to its respective terrain; it takes care for the draw and update
+
+	int m_tileSize;
+
+	int2 m_lastSelectedTile;
+	bool m_selectedTile;
+
+	vector <string> m_biomes; // all file names in directory "img\\game\\terrain\\"
+
+	SDL_Renderer* m_mainRenderer;
 
 	string m_tileTextureFiles; // path to the directory with biomes ("img\\game\\terrain\\")
 	string m_tileShadowTextureFile;
-
-	int terrainObjectsCnt[TERRAIN_OBJECTS]; // the count of each object (1 tile, 1 fluid, 1 mountain, 2 trees)
 
 	vector <SDL_Texture*> m_tileTexture;
 	vector <SDL_Texture*> m_tileFluidTexture;
 	vector <SDL_Texture*> m_mountainTexture;
 	vector <SDL_Texture*> m_treeTexture;
 
-	SDL_Texture* m_tileShadowTexture;
+	SDL_Texture* m_tileShadowTexture;	
 
+	void checkForMovement();
 	int m_tileSize;
 
 	CMap* m_currMap;
@@ -47,12 +64,8 @@ public:
 	int2 lastSelectedTile;
 	bool selectedTile;
 
-	bool dragged;
-
-	int2 m_start_coords;
-	int2 m_distanceFromMouseToStart;
-
 	void getBiomes();
+	void getTextures(string biome);
 
 	void makeEntity(int2 tile);
 
@@ -64,15 +77,19 @@ public:
 	void makeTerrainMountain(int2 slot);
 	void makeTerrainTree(int2 slot);
 
-	void move();
+	void makePowerhouse(int2 slot, POWERHOUSE type);
+
+	void loadTiles();
 
 	void loadPowerhouses(int lvl);
 	void makePowerhouseBySize(POWERHOUSE type, int quantity);
 
 	void init(SDL_Renderer* renderer);
 	void start(CMap* map);
+
 	void checkForOtherSelectedTiles(int2 CurrSelectedTileCoord);
 	void update();
+
 	void draw();
 	void quit();
 };
