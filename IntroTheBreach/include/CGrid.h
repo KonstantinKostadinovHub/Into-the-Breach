@@ -32,7 +32,6 @@ public:
 
 	CTile* m_tile[M_SIZE][M_SIZE];
 	CTerrain* m_terrain[M_SIZE][M_SIZE]; // each tile recieves a pointer to its respective terrain; it takes care for the draw and update
-	Entity* m_entity[M_SIZE][M_SIZE];
 
 	int m_tileSize;
 
@@ -78,9 +77,6 @@ public:
 	void makePowerhouse(int2 slot, POWERHOUSE type);
 
 	void loadTiles();
-
-	void loadPowerhouses(int lvl);
-	void makePowerhouseBySize(POWERHOUSE type, int quantity);
 
 	void init(SDL_Renderer* renderer);
 	void start(CMap* map);
