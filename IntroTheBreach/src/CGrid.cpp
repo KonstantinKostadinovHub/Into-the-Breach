@@ -61,6 +61,12 @@ void CGrid::getBiomes() {
 	cout << biomes.size() << '\n';
 }
 
+void CGrid::makeEntity(int2 tile) {
+	if (rand() % 3 == 0) {
+		m_entity[tile.x][tile.y] = new Entity(tile.x, tile.y, 0, rand() % 2);
+	}
+}
+
 
 void CGrid::init(SDL_Renderer* renderer) {
 	m_mainRenderer = renderer;
@@ -95,6 +101,7 @@ void CGrid::init(SDL_Renderer* renderer) {
 	for (int yy = 0; yy < M_SIZE; yy++) {
 		for (int xx = 0; xx < M_SIZE; xx++) {
 			tile[xx][yy] = new CTile();
+			m_entity[xx][yy] = nullptr;
 		}
 	}
 
@@ -107,14 +114,14 @@ void CGrid::makeTile(int2 slot) {
 	int indexTile = rand() % (int)m_tileTexture.size();
 
 	tile[slot.x][slot.y]->init(m_mainRenderer, m_tileTexture[indexTile], m_tileShadowTexture, 
-		{ slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, false, terrain[slot.x][slot.y]);
+		{ slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, false, terrain[slot.x][slot.y], m_entity[slot.x][slot.y]);
 }
 
 void CGrid::makeTileFluid(int2 slot) {
 	int indexFluid = rand() % (int)m_tileFluidTexture.size();
 
 	tile[slot.x][slot.y]->init(m_mainRenderer, m_tileFluidTexture[indexFluid], m_tileShadowTexture, 
-		{ slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, true, terrain[slot.x][slot.y]);
+		{ slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, true, terrain[slot.x][slot.y], nullptr);
 }
 
 void CGrid::makeTerrainNone(int2 slot) {
@@ -227,46 +234,47 @@ void CGrid::start(CMap* map) {
 	for (int yy = 0; yy < M_SIZE; yy++) {
 		for (int xx = 0; xx < M_SIZE; xx++) {
 			if (m_currMap->m_map[xx][yy] == '0') {
-				makeTerrainNone({ xx, yy });
+				makeTerrainNone(int2(xx, yy));
 
-				makeTile({ xx, yy });
+				makeEntity(int2(xx, yy));
+				makeTile(int2(xx, yy));
 			}
 			else if (m_currMap->m_map[xx][yy] == 'W') {
-				makeTerrainFluid({ xx, yy });
+				makeTerrainFluid(int2(xx, yy));
 
-				makeTileFluid({ xx, yy });
+				makeTileFluid(int2(xx, yy));
 			}
 			else if (m_currMap->m_map[xx][yy] == 'M') {
-				makeTerrainMountain({ xx, yy });
+				makeTerrainMountain(int2(xx, yy));
 				
-				makeTile({ xx, yy });
+				makeTile(int2(xx, yy));
 			}
 			else if (m_currMap->m_map[xx][yy] == 'T') {
-				makeTerrainTree({ xx, yy });
+				makeTerrainTree(int2(xx, yy));
 
-				makeTile({ xx, yy });
+				makeTile(int2(xx, yy));
 			}
 			else {
 				int indexTerrainType = rand() % 11;
 
 				if (indexTerrainType == 0) {
-					makeTerrainFluid({ xx, yy });
+					makeTerrainFluid(int2(xx, yy));
 				}
 				else if (indexTerrainType == 1) {
-					makeTerrainMountain({ xx, yy });
+					makeTerrainMountain(int2(xx, yy));
 				}
 				else if (indexTerrainType == 2) {
-					makeTerrainTree({ xx, yy });
+					makeTerrainTree(int2(xx, yy));
 				}
 				else {
-					makeTerrainNone({ xx, yy });
+					makeTerrainNone(int2(xx, yy));
 				}
 
 				if (indexTerrainType == 0) {
-					makeTileFluid({ xx, yy });
+					makeTileFluid(int2(xx, yy));
 				}
 				else {
-					makeTile({ xx, yy });
+					makeTile(int2(xx, yy));
 				}
 			}
 

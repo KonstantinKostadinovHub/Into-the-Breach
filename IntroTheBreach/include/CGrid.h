@@ -42,6 +42,7 @@ public:
 
 	CTile* tile[M_SIZE][M_SIZE];
 	CTerrain* terrain[M_SIZE][M_SIZE];
+	Entity* m_entity[M_SIZE][M_SIZE];
 
 	int2 lastSelectedTile;
 	bool selectedTile;
@@ -52,6 +53,8 @@ public:
 	int2 m_distanceFromMouseToStart;
 
 	void getBiomes();
+
+	void makeEntity(int2 tile);
 
 	void makeTile(int2 slot);
 	void makeTileFluid(int2 slot);

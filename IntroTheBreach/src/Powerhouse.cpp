@@ -38,6 +38,8 @@ void Powerhouse::init(SDL_Renderer* renderer, POWERHOUSE type, int team)
 
     m_texture = loadTexture(renderer, "game\\powerhouses\\powerhouse_" + to_string(int(type)) + ".bmp");
 
+    m_team = team;
+
     m_all.push_back(this);
 }
 
