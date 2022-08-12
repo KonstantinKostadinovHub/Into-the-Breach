@@ -53,9 +53,6 @@ public:
 	SDL_Texture* m_tileShadowTexture;	
 
 	void checkForMovement();
-	int m_tileSize;
-
-	CMap* m_currMap;
 
 	CTile* tile[M_SIZE][M_SIZE];
 	CTerrain* terrain[M_SIZE][M_SIZE];
