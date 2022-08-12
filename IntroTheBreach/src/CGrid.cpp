@@ -174,45 +174,6 @@ void CGrid::makePowerhouse(int2 slot, POWERHOUSE type) {
 	m_tile[slot.x][slot.y]->addPowerhouse(ph);
 }
 
-//void CGrid::loadPowerhouses(int lvl)
-//{
-//	int s, m, l;
-//
-//	// read from file
-//	ifstream stream;
-//	stream.open("levels\\powerhouses_" + std::to_string(lvl) + ".lvl");
-//
-//	stream >> s >> m >> l;
-//
-//	stream.close();
-//
-//	// generate randomly
-//	makePowerhouseBySize(POWERHOUSE::SMALL, s);
-//	makePowerhouseBySize(POWERHOUSE::MID, m);
-//	makePowerhouseBySize(POWERHOUSE::LARGE, l);
-//}
-//
-//void CGrid::makePowerhouseBySize(POWERHOUSE type, int quantity)
-//{
-//	while (quantity > 0)
-//	{
-//
-//		int x = rand() % CMap::M_SIZE;
-//		int y = rand() % CMap::M_SIZE;
-//
-//		Powerhouse* ph = new Powerhouse();
-//
-//		ph->init(m_mainRenderer, type, 1);
-//
-//		cout << quantity << " " << x << " " << y << " " << ph << '\n';
-//
-//		if (m_tile[x][y]->addPowerhouse(ph))
-//		{
-//			quantity--;
-//		}
-//	}
-//}
-
 void CGrid::getTextures(string biome) {
 	int terrainObjectsCnt[4];
 
