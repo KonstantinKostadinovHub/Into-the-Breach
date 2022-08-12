@@ -17,7 +17,7 @@ extern int SCREEN_H;
 
 extern char align_with;
 
-const int ENTITY_KNOCKBACK_TICKS = 50;
+const int ENTITY_KNOCKBACK_TICKS = 41;
 
 const float GRAVITY_PULL = 0.5;
 

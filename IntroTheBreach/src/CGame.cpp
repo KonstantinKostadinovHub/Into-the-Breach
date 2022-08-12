@@ -34,6 +34,8 @@ void CGame::loadMap(int lvl) {
 	}
 
 	fin.close();
+
+	m_currMap.init();
 }
 
 void CGame::init(SDL_Renderer* renderer) {
