@@ -76,9 +76,6 @@ public:
 
 	void loadTiles();
 
-	void loadPowerhouses(int lvl);
-	void makePowerhouseBySize(POWERHOUSE type, int quantity);
-
 	void init(SDL_Renderer* renderer);
 	void start(CMap* map);
 
