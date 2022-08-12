@@ -103,7 +103,7 @@ void CGrid::init(SDL_Renderer* renderer) {
 		for (int xx = 0; xx < M_SIZE; xx++) {
 			m_tile[xx][yy] = new CTile();
 			m_tile[xx][yy]->init(m_mainRenderer, nullptr, nullptr,
-				{ xx * m_tileSize, yy * m_tileSize }, m_tileSize, false, nullptr); 
+				{ xx * m_tileSize, yy * m_tileSize }, m_tileSize, false, nullptr, nullptr); 
 			// do not call CTile::update() or CTile::draw() before calling CGrid::start() or it will crash 
 			// (because the pointer to terrain is nullptr)
 			m_entity[xx][yy] = nullptr;
@@ -125,14 +125,14 @@ void CGrid::makeTile(int2 slot) {
 	int indexTile = rand() % (int)m_tileTexture.size();
 
 	m_tile[slot.x][slot.y]->init(m_mainRenderer, m_tileTexture[indexTile], m_tileShadowTexture, 
-		{ slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, false, m_terrain[slot.x][slot.y]);
+		{ slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, false, m_terrain[slot.x][slot.y], nullptr);
 }
 
 void CGrid::makeTileFluid(int2 slot) {
 	int indexFluid = rand() % (int)m_tileFluidTexture.size();
 
 	m_tile[slot.x][slot.y]->init(m_mainRenderer, m_tileFluidTexture[indexFluid], m_tileShadowTexture, 
-		{ slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, true, m_terrain[slot.x][slot.y]);
+		{ slot.x * m_tileSize, slot.y * m_tileSize }, m_tileSize, true, m_terrain[slot.x][slot.y], nullptr);
 }
 
 void CGrid::makeTerrainNone(int2 slot) {

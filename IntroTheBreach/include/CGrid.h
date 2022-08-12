@@ -55,6 +55,13 @@ public:
 
 	void checkForMovement();
 
+	CTile* tile[M_SIZE][M_SIZE];
+	CTerrain* terrain[M_SIZE][M_SIZE];
+	Entity* m_entity[M_SIZE][M_SIZE];
+
+	int2 lastSelectedTile;
+	bool selectedTile;
+
 	void getBiomes();
 	void getTextures(string biome);
 
