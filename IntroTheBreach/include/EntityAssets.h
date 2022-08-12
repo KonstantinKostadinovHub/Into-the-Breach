@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SDL.h"
 #include <vector>
 #include <string>
 using namespace std;
@@ -8,6 +9,8 @@ class EntityAssets {
 public:
 	EntityAssets();
 	~EntityAssets();
+
+	SDL_Texture* m_texture;
 
 	std::string m_name;
 	int m_health;

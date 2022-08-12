@@ -32,6 +32,7 @@ public:
 
 	CTile* m_tile[M_SIZE][M_SIZE];
 	CTerrain* m_terrain[M_SIZE][M_SIZE]; // each tile recieves a pointer to its respective terrain; it takes care for the draw and update
+	Entity* m_entity[M_SIZE][M_SIZE];
 
 	int m_tileSize;
 
@@ -56,6 +57,8 @@ public:
 
 	void getBiomes();
 	void getTextures(string biome);
+
+	void makeEntity(int2 tile);
 
 	void makeTile(int2 slot);
 	void makeTileFluid(int2 slot);

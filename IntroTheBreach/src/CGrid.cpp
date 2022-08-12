@@ -59,6 +59,12 @@ void CGrid::getBiomes() {
 	cout << m_biomes.size() << '\n';
 }
 
+void CGrid::makeEntity(int2 tile) {
+	if (rand() % 3 == 0) {
+		m_entity[tile.x][tile.y] = new Entity(tile.x, tile.y, 0, rand() % 2);
+	}
+}
+
 
 void CGrid::init(SDL_Renderer* renderer) {
 	m_mainRenderer = renderer;
@@ -100,6 +106,7 @@ void CGrid::init(SDL_Renderer* renderer) {
 				{ xx * m_tileSize, yy * m_tileSize }, m_tileSize, false, nullptr); 
 			// do not call CTile::update() or CTile::draw() before calling CGrid::start() or it will crash 
 			// (because the pointer to terrain is nullptr)
+			m_entity[xx][yy] = nullptr;
 		}
 	}
 
@@ -201,12 +208,13 @@ void CGrid::loadTiles() {
 			if (m_currMap->m_map[xx][yy] == CMap::TILE) {
 				makeTerrainNone({ xx, yy });
 
-				makeTile({ xx, yy });
+				makeEntity(int2(xx, yy));
+				makeTile(int2(xx, yy));
 			}
 			else if (m_currMap->m_map[xx][yy] == CMap::FLUID) {
 				makeTerrainFluid({ xx, yy });
 
-				makeTileFluid({ xx, yy });
+				makeTileFluid(int2(xx, yy));
 			}
 			else if (m_currMap->m_map[xx][yy] == CMap::MOUNTAIN) {
 				makeTerrainMountain({ xx, yy });
@@ -216,7 +224,7 @@ void CGrid::loadTiles() {
 			else if (m_currMap->m_map[xx][yy] == CMap::TREE) {
 				makeTerrainTree({ xx, yy });
 
-				makeTile({ xx, yy });
+				makeTile(int2(xx, yy));
 			}
 			else if (m_currMap->m_map[xx][yy] == CMap::PHOUSE1) {
 				makeTerrainNone({ xx, yy });
@@ -243,23 +251,23 @@ void CGrid::loadTiles() {
 				int indexTerrainType = rand() % 11;
 
 				if (indexTerrainType == 0) {
-					makeTerrainFluid({ xx, yy });
+					makeTerrainFluid(int2(xx, yy));
 				}
 				else if (indexTerrainType == 1) {
-					makeTerrainMountain({ xx, yy });
+					makeTerrainMountain(int2(xx, yy));
 				}
 				else if (indexTerrainType == 2) {
-					makeTerrainTree({ xx, yy });
+					makeTerrainTree(int2(xx, yy));
 				}
 				else {
-					makeTerrainNone({ xx, yy });
+					makeTerrainNone(int2(xx, yy));
 				}
 
 				if (indexTerrainType == 0) {
-					makeTileFluid({ xx, yy });
+					makeTileFluid(int2(xx, yy));
 				}
 				else {
-					makeTile({ xx, yy });
+					makeTile(int2(xx, yy));
 				}
 			}
 

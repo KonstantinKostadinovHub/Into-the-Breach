@@ -13,7 +13,7 @@ using std::pair;
 class Entity {
 public:
 	Entity();
-	Entity(int st_tileCol, int st_tileRow, int health, int identity,  bool enemy);
+	Entity(int st_tileCol, int st_tileRow, int identity,  bool enemy);
 	~Entity();
 
 	static std::vector<EntityAssets> m_ENTITIES;
@@ -39,7 +39,7 @@ public:
 	void draw(SDL_Renderer* renderer);
 	void update();
 	
-	static void readEntityAssets();
+	static void readEntityAssets(SDL_Renderer* renderer);
 
 	void moveToTile(int tileCol, int tileRow);
 	void continueMoving();

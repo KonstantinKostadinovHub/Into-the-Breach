@@ -19,6 +19,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\CFluid.h" />
+    <ClInclude Include="include\CGame.h" />
+    <ClInclude Include="include\CGrid.h" />
+    <ClInclude Include="include\CMap.h" />
+    <ClInclude Include="include\CMountain.h" />
+    <ClInclude Include="include\CNoTerrain.h" />
+    <ClInclude Include="include\CTerrain.h" />
+    <ClInclude Include="include\CTile.h" />
+    <ClInclude Include="include\CTree.h" />
+    <ClInclude Include="include\CWorld.h" />
+    <ClInclude Include="include\Engine.h" />
+    <ClInclude Include="include\Entity.h" />
+    <ClInclude Include="include\EntityAssets.h" />
+    <ClInclude Include="include\Globals.h" />
+    <ClInclude Include="include\Health.h" />
+    <ClInclude Include="include\Healthbar.h" />
+    <ClInclude Include="include\InputManger.h" />
+    <ClInclude Include="include\Powerhouse.h" />
+    <ClInclude Include="include\Projectile.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\CFluid.cpp" />
     <ClCompile Include="src\CGame.cpp" />
     <ClCompile Include="src\CGrid.cpp" />
@@ -39,27 +60,6 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Powerhouse.cpp" />
     <ClCompile Include="src\Projectile.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\CFluid.h" />
-    <ClInclude Include="include\CGame.h" />
-    <ClInclude Include="include\CGrid.h" />
-    <ClInclude Include="include\CMap.h" />
-    <ClInclude Include="include\CMountain.h" />
-    <ClInclude Include="include\CNoTerrain.h" />
-    <ClInclude Include="include\CTerrain.h" />
-    <ClInclude Include="include\CTile.h" />
-    <ClInclude Include="include\CTree.h" />
-    <ClInclude Include="include\CWorld.h" />
-    <ClInclude Include="include\Engine.h" />
-    <ClInclude Include="include\Entity.h" />
-    <ClInclude Include="include\EntityAssets.h" />
-    <ClInclude Include="include\Globals.h" />
-    <ClInclude Include="include\Health.h" />
-    <ClInclude Include="include\Healthbar.h" />
-    <ClInclude Include="include\InputManger.h" />
-    <ClInclude Include="include\Powerhouse.h" />
-    <ClInclude Include="include\Projectile.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

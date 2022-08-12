@@ -5,15 +5,17 @@ vector<EntityAssets> Entity::m_ENTITIES = vector<EntityAssets>();
 Entity::Entity() {
 }
 
-Entity::Entity(int st_tileCol, int st_tileRow, int health, int identity, bool enemy) {
+Entity::Entity(int st_tileCol, int st_tileRow, int identity, bool enemy) {
 	m_rect.w = 60;
 	m_rect.h = 78;
 	m_enemy = enemy;
 
 	setCoordsOnTile(st_tileCol, st_tileRow);
 	
-	m_healthbar = Healthbar(health, int2(m_rect.x + m_rect.w / 2, m_rect.y - HEALTHBAR_OFFSET_FROM_ENTITY), m_enemy);
+	m_healthbar = Healthbar(m_ENTITIES[identity].m_health, int2(m_rect.x + m_rect.w / 2, m_rect.y - HEALTHBAR_OFFSET_FROM_ENTITY), m_enemy);
 
+
+	m_texture = m_ENTITIES[identity].m_texture;
 	m_type = identity;
 	m_dead = false;
 	m_moving = false;
@@ -47,7 +49,7 @@ void Entity::update() {
 	}
 }
 
-void Entity::readEntityAssets() {
+void Entity::readEntityAssets(SDL_Renderer* renderer) {
 	ifstream read;
 	read.open("config\\entity\\entity.txt");
 	string temp;
@@ -60,6 +62,8 @@ void Entity::readEntityAssets() {
 		int jumpingMelee, straightProj, piercingProj;
 		read >> m_ENTITIES[i].m_name >> m_ENTITIES[i].m_health >> m_ENTITIES[i].m_moveRadius 
 			 >> jumpingMelee >> straightProj >> piercingProj >> m_ENTITIES[i].m_doKnockback;
+
+		m_ENTITIES[i].m_texture = loadTexture(renderer, "entity\\" + m_ENTITIES[i].m_name + ".bmp");
 
 		if (jumpingMelee == -1) {
 			m_ENTITIES[i].m_ranged = true;
@@ -147,8 +151,8 @@ void Entity::setCoordsOnTile(int tileCol, int tileRow) {
 	grid2dCoords.y = tileRow * TILE_SIZE + TILE_SIZE / 2;
 
 	//Change rect
-	int2 temp = gridToScreenCoords(int2(tileCol * TILE_SIZE, tileRow * TILE_SIZE));
-	temp.x += ISOM_TILE_W / 2;
+	int2 temp = normalToIsom(int2(tileCol * TILE_SIZE, tileRow * TILE_SIZE));
+	//temp.x += ISOM_TILE_W / 2;
 	temp.y += ISOM_TILE_H / 2;
 
 	setBottomCenterCoords(temp);

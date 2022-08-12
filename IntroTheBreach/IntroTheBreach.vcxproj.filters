@@ -10,11 +10,17 @@
     <Filter Include="include\General">
       <UniqueIdentifier>{d343be1a-df11-4804-9529-9b3b7eb69358}</UniqueIdentifier>
     </Filter>
+    <Filter Include="include\Entity">
+      <UniqueIdentifier>{c8320b14-7d7d-4b2f-9f13-3b78105e6782}</UniqueIdentifier>
+    </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{07395f2d-3414-412c-b757-09822df4418b}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Terrain">
       <UniqueIdentifier>{0d52a464-af50-43d7-8a8d-f06fe9660bf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\General">
+      <UniqueIdentifier>{b1dd14ab-dea6-4d62-ac10-df48bae0c99a}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Entity">
       <UniqueIdentifier>{f0f5dec5-2456-44c1-83f1-d4aab66eb921}</UniqueIdentifier>
@@ -24,12 +30,6 @@
     </Filter>
     <Filter Include="include\Terrain">
       <UniqueIdentifier>{69738e64-4426-4a5d-a74e-d927c2075ebf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\General">
-      <UniqueIdentifier>{b1dd14ab-dea6-4d62-ac10-df48bae0c99a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\General\Entity">
-      <UniqueIdentifier>{c8320b14-7d7d-4b2f-9f13-3b78105e6782}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -48,19 +48,10 @@
     <ClCompile Include="src\CTree.cpp">
       <Filter>src\Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="src\CGame.cpp">
-      <Filter>src</Filter>
+    <ClCompile Include="src\Entity.cpp">
+      <Filter>src\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="src\CGrid.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\CTile.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Powerhouse.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Projectile.cpp">
+    <ClCompile Include="src\EntityAssets.cpp">
       <Filter>src\Entity</Filter>
     </ClCompile>
     <ClCompile Include="src\Health.cpp">
@@ -69,11 +60,23 @@
     <ClCompile Include="src\Healthbar.cpp">
       <Filter>src\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="src\EntityAssets.cpp">
+    <ClCompile Include="src\Projectile.cpp">
       <Filter>src\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entity.cpp">
-      <Filter>src\Entity</Filter>
+    <ClCompile Include="src\CGame.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CWorld.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Engine.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Globals.cpp">
+      <Filter>src\General</Filter>
+    </ClCompile>
+    <ClCompile Include="src\InputManger.cpp">
+      <Filter>src\General</Filter>
     </ClCompile>
     <ClCompile Include="src\CFluid.cpp">
       <Filter>src\Terrain</Filter>
@@ -93,63 +96,42 @@
     <ClCompile Include="src\CTree.cpp">
       <Filter>src\Terrain</Filter>
     </ClCompile>
-    <ClCompile Include="src\CWorld.cpp">
-      <Filter>src\General</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Engine.cpp">
-      <Filter>src\General</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Globals.cpp">
-      <Filter>src\General</Filter>
-    </ClCompile>
-    <ClCompile Include="src\InputManger.cpp">
-      <Filter>src\General</Filter>
+    <ClCompile Include="src\Powerhouse.cpp">
+      <Filter>src\Terrain</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>src\General</Filter>
     </ClCompile>
+    <ClCompile Include="src\CGrid.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\CTile.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\CGame.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CGrid.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CTile.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Powerhouse.h">
-      <Filter>include</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Projectile.h">
-      <Filter>include\General\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Healthbar.h">
-      <Filter>include\General\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Health.h">
-      <Filter>include\General\Entity</Filter>
+    <ClInclude Include="include\Entity.h">
+      <Filter>include\Entity</Filter>
     </ClInclude>
     <ClInclude Include="include\EntityAssets.h">
-      <Filter>include\General\Entity</Filter>
+      <Filter>include\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="include\Entity.h">
-      <Filter>include\General\Entity</Filter>
+    <ClInclude Include="include\Health.h">
+      <Filter>include\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="include\InputManger.h">
-      <Filter>include\General</Filter>
+    <ClInclude Include="include\Healthbar.h">
+      <Filter>include\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="include\Globals.h">
-      <Filter>include\General</Filter>
+    <ClInclude Include="include\Projectile.h">
+      <Filter>include\Entity</Filter>
     </ClInclude>
-    <ClInclude Include="include\Engine.h">
-      <Filter>include\General</Filter>
-    </ClInclude>
-    <ClInclude Include="include\CWorld.h">
-      <Filter>include\General</Filter>
+    <ClInclude Include="include\Powerhouse.h">
+      <Filter>include\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="include\CFluid.h">
+      <Filter>include\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CMap.h">
       <Filter>include\Terrain</Filter>
     </ClInclude>
     <ClInclude Include="include\CMountain.h">
@@ -164,8 +146,26 @@
     <ClInclude Include="include\CTree.h">
       <Filter>include\Terrain</Filter>
     </ClInclude>
-    <ClInclude Include="include\CMap.h">
-      <Filter>include\Terrain</Filter>
+    <ClInclude Include="include\CGame.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CWorld.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Engine.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Globals.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
+    <ClInclude Include="include\InputManger.h">
+      <Filter>include\General</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CTile.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="include\CGrid.h">
+      <Filter>include</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

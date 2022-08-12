@@ -5,9 +5,10 @@
 
 using std::string;
 
-#include "CTerrain.h"
 #include "Engine.h"
 #include "InputManger.h"
+#include "Entity.h"
+#include "CTerrain.h"
 #include "Powerhouse.h"
 
 class CTile {
@@ -35,9 +36,10 @@ public:
 	SDL_Rect m_isomRectLifted;
 
 	CTerrain* m_terrain;
+	Entity* m_entity;
 	Powerhouse* m_powerhouse;
 
-	void init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shadow_texture, int2 coord, int size, bool is_water, CTerrain* terrain);
+	void init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shadow_texture, int2 coord, int size, bool is_water, CTerrain* terrain, Entity* entity);
 
 	bool addPowerhouse(Powerhouse* powerhouse);
 

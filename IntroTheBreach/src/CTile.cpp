@@ -26,13 +26,14 @@ CTile::CTile() {
 	z_add = 0;
 
 	m_terrain = nullptr;
+	m_entity = nullptr;
 }
 
 CTile::~CTile() {
 
 }
 
-void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shadow_texture, int2 coord, int size, bool is_water, CTerrain* terrain) {
+void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shadow_texture, int2 coord, int size, bool is_water, CTerrain* terrain, Entity* entity) {
 	m_mainRenderer = renderer;
 
 	m_texture = texture;
@@ -67,6 +68,7 @@ void CTile::init(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Texture* shad
 	water = is_water;
 
 	m_terrain = terrain;
+	m_entity = entity;
 
 	m_powerhouse = nullptr;
 }
@@ -124,6 +126,9 @@ void CTile::update() {
 			selected = false;
 		}
 	}
+	if (m_entity != nullptr) {
+		m_entity->update();
+	}
 
 	m_terrain->update();
 }
@@ -153,6 +158,9 @@ void CTile::draw() {
 		}
 	}
 
+	if (m_entity != nullptr) {
+		m_entity->draw(m_mainRenderer);
+	}
 	m_terrain->draw();
 }
 
